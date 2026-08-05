@@ -280,7 +280,7 @@
 <body>
 
   <div class="top-bar">
-    <a href="index.html" class="logo">IA<span>annonce</span></a>
+    <a href="index.html" class="logo">IA<span>nnonce</span></a>
     <a href="index.html" class="back-link">← Retour</a>
   </div>
 
@@ -320,9 +320,7 @@
 
       <div class="divider">ou</div>
 
-      <button type="button" class="btn btn-secondary" onclick="demoLogin()">
-        Continuer en mode démo
-      </button>
+      
 
       <p class="signup">
      Pas encore de compte ? <a href="register.html">Créer un compte</a>
@@ -340,16 +338,29 @@
       input.type = input.type === 'password' ? 'text' : 'password';
     }
 
-    function handleLogin(e) {
-      e.preventDefault();
-      // Pour l'instant on redirige vers le dashboard
-      // Plus tard on branchera une vraie authentification
-      window.location.href = 'dashboard.html';
-    }
+async function handleLogin(e) {
+  e.preventDefault();
 
-    function demoLogin() {
-      window.location.href = 'dashboard.html';
-    }
+  const email = document.getElementById('email').value.trim();
+  const password = document.getElementById('password').value;
+
+  const { data, error } = await supabaseClient.auth.signInWithPassword({
+    email: email,
+    password: password
+  });
+
+  if (error) {
+    alert("Email ou mot de passe incorrect.");
+    return;
+  }
+
+  window.location.href = "dashboard.html";
+}
   </script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase.js"></script>
+
+  
 </body>
 </html>
