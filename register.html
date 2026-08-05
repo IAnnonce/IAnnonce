@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Créer un compte – IAannonce</title>
+  <meta name="theme-color" content="#2563eb">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --secondary: #06b6d4;
+      --dark: #0f172a;
+      --gray: #64748b;
+      --gray-light: #94a3b8;
+      --border: #e2e8f0;
+      --bg: #f8fafc;
+      --white: #ffffff;
+      --red: #ef4444;
+      --radius: 12px;
+      --radius-lg: 18px;
+      --radius-xl: 24px;
+      --shadow: 0 10px 40px rgba(15, 23, 42, 0.08);
+      --transition: 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--dark);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .top-bar {
+      padding: 20px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--primary);
+      letter-spacing: -0.5px;
+    }
+    .logo span {
+      color: var(--dark);
+    }
+
+    .back-link {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--gray);
+      transition: color var(--transition);
+    }
+    .back-link:hover {
+      color: var(--primary);
+    }
+
+    .main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px 24px 60px;
+    }
+
+    .register-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 40px 36px;
+      width: 100%;
+      max-width: 440px;
+      box-shadow: var(--shadow);
+    }
+
+    .register-card h1 {
+      font-size: 1.6rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      margin-bottom: 8px;
+      text-align: center;
+    }
+
+    .register-card .subtitle {
+      text-align: center;
+      color: var(--gray);
+      font-size: 0.975rem;
+      margin-bottom: 28px;
+    }
+
+    .field {
+      margin-bottom: 16px;
+    }
+
+    label {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 7px;
+      color: var(--dark);
+    }
+
+    input {
+      width: 100%;
+      padding: 13px 15px;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      font-size: 0.975rem;
+      font-family: inherit;
+      color: var(--dark);
+      background: white;
+      transition: border-color var(--transition), box-shadow var(--transition);
+    }
+    input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+    }
+    input.error {
+      border-color: var(--red);
+      box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.12);
+    }
+    input::placeholder {
+      color: #94a3b8;
+    }
+
+    .error-msg {
+      display: none;
+      font-size: 0.82rem;
+      color: var(--red);
+      margin-top: 6px;
+    }
+    .error-msg.visible {
+      display: block;
+    }
+
+    .password-wrap {
+      position: relative;
+    }
+    .password-wrap input {
+      padding-right: 48px;
+    }
+    .toggle-password {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 1.1rem;
+      color: var(--gray);
+      padding: 4px;
+    }
+
+    .terms {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin: 20px 0 24px;
+      font-size: 0.875rem;
+      color: var(--gray);
+      line-height: 1.45;
+    }
+    .terms input {
+      width: auto;
+      margin-top: 3px;
+      accent-color: var(--primary);
+      flex-shrink: 0;
+    }
+    .terms a {
+      color: var(--primary);
+      font-weight: 500;
+    }
+    .terms a:hover {
+      text-decoration: underline;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding: 14px 24px;
+      border-radius: 12px;
+      border: none;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all var(--transition);
+      font-family: inherit;
+    }
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.25);
+    }
+    .btn-primary:hover {
+      background: var(--primary-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(37, 99, 235, 0.32);
+    }
+    .btn-primary:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin: 24px 0;
+      color: var(--gray-light);
+      font-size: 0.85rem;
+    }
+    .divider::before,
+    .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .login-link {
+      text-align: center;
+      margin-top: 24px;
+      font-size: 0.95rem;
+      color: var(--gray);
+    }
+    .login-link a {
+      color: var(--primary);
+      font-weight: 600;
+    }
+    .login-link a:hover {
+      text-decoration: underline;
+    }
+
+    .demo-note {
+      margin-top: 20px;
+      padding: 12px 16px;
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      border-radius: 10px;
+      font-size: 0.85rem;
+      color: #1e40af;
+      text-align: center;
+    }
+
+    @media (max-width: 480px) {
+      .register-card {
+        padding: 32px 24px;
+      }
+      .top-bar {
+        padding: 16px 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="top-bar">
+    <a href="index.html" class="logo">IA<span>annonce</span></a>
+    <a href="index.html" class="back-link">← Retour</a>
+  </div>
+
+  <main class="main">
+    <div class="register-card">
+      <h1>Créer un compte</h1>
+      <p class="subtitle">Commencez à créer vos annonces IA en quelques minutes</p>
+
+      <form id="registerForm" onsubmit="handleRegister(event)" novalidate>
+        <div class="field">
+          <label for="name">Nom complet</label>
+          <input type="text" id="name" placeholder="Gabriel Dupont" required autocomplete="name">
+          <div class="error-msg" id="error-name">Veuillez entrer votre nom</div>
+        </div>
+
+        <div class="field">
+          <label for="email">Email</label>
+          <input type="email" id="email" placeholder="vous@email.com" required autocomplete="email">
+          <div class="error-msg" id="error-email">Veuillez entrer un email valide</div>
+        </div>
+
+        <div class="field">
+          <label for="password">Mot de passe</label>
+          <div class="password-wrap">
+            <input type="password" id="password" placeholder="Minimum 8 caractères" required minlength="8" autocomplete="new-password">
+            <button type="button" class="toggle-password" onclick="togglePassword('password')" aria-label="Afficher le mot de passe">👁️</button>
+          </div>
+          <div class="error-msg" id="error-password">Le mot de passe doit contenir au moins 8 caractères</div>
+        </div>
+
+        <div class="field">
+          <label for="passwordConfirm">Confirmer le mot de passe</label>
+          <div class="password-wrap">
+            <input type="password" id="passwordConfirm" placeholder="Retapez votre mot de passe" required autocomplete="new-password">
+            <button type="button" class="toggle-password" onclick="togglePassword('passwordConfirm')" aria-label="Afficher le mot de passe">👁️</button>
+          </div>
+          <div class="error-msg" id="error-passwordConfirm">Les mots de passe ne correspondent pas</div>
+        </div>
+
+        <label class="terms">
+          <input type="checkbox" id="terms" required>
+          <span>J’accepte les <a href="#">Conditions d’utilisation</a> et la <a href="#">Politique de confidentialité</a></span>
+        </label>
+        <div class="error-msg" id="error-terms" style="margin-top:-12px; margin-bottom:12px;">Vous devez accepter les conditions</div>
+
+        <button type="submit" class="btn btn-primary" id="submitBtn">
+          Créer mon compte
+        </button>
+      </form>
+
+      <div class="divider">ou</div>
+
+      <p class="login-link">
+        Déjà un compte ? <a href="login.html">Se connecter</a>
+      </p>
+
+      <div class="demo-note">
+        Mode démo : l’inscription redirige vers le dashboard
+      </div>
+    </div>
+  </main>
+
+  <script>
+    function togglePassword(id) {
+      const input = document.getElementById(id);
+      input.type = input.type === 'password' ? 'text' : 'password';
+    }
+
+    function showError(id, show) {
+      const input = document.getElementById(id);
+      const error = document.getElementById('error-' + id);
+      if (show) {
+        input.classList.add('error');
+        error.classList.add('visible');
+      } else {
+        input.classList.remove('error');
+        error.classList.remove('visible');
+      }
+    }
+
+    function handleRegister(e) {
+      e.preventDefault();
+      let isValid = true;
+
+      const name = document.getElementById('name');
+      const email = document.getElementById('email');
+      const password = document.getElementById('password');
+      const passwordConfirm = document.getElementById('passwordConfirm');
+      const terms = document.getElementById('terms');
+
+      // Reset
+      ['name', 'email', 'password', 'passwordConfirm'].forEach(id => showError(id, false));
+      document.getElementById('error-terms').classList.remove('visible');
+
+      // Name
+      if (!name.value.trim()) {
+        showError('name', true);
+        isValid = false;
+      }
+
+      // Email
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!email.value.trim() || !emailRegex.test(email.value)) {
+        showError('email', true);
+        isValid = false;
+      }
+
+      // Password
+      if (password.value.length < 8) {
+        showError('password', true);
+        isValid = false;
+      }
+
+      // Confirm
+      if (password.value !== passwordConfirm.value) {
+        showError('passwordConfirm', true);
+        isValid = false;
+      }
+
+      // Terms
+      if (!terms.checked) {
+        document.getElementById('error-terms').classList.add('visible');
+        isValid = false;
+      }
+
+      if (isValid) {
+        // Mode démo → redirection dashboard
+        window.location.href = 'dashboard.html';
+      }
+    }
+
+    // Enlever les erreurs en temps réel
+    ['name', 'email', 'password', 'passwordConfirm'].forEach(id => {
+      document.getElementById(id).addEventListener('input', () => showError(id, false));
+    });
+  </script>
+</body>
+</html>

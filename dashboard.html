@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IAannonce – Tableau de bord</title>
+  <meta name="theme-color" content="#0f172a">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --secondary: #06b6d4;
+      --dark: #0f172a;
+      --dark-soft: #1e293b;
+      --gray: #64748b;
+      --gray-light: #94a3b8;
+      --border: #e2e8f0;
+      --bg: #f8fafc;
+      --white: #ffffff;
+      --green: #10b981;
+      --green-bg: #dcfce7;
+      --green-text: #15803d;
+      --radius: 14px;
+      --radius-lg: 18px;
+      --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.04);
+      --shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+      --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--dark);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .app {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* ========== SIDEBAR ========== */
+    .sidebar {
+      width: 260px;
+      background: var(--dark);
+      color: white;
+      padding: 28px 16px;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      z-index: 100;
+      transition: transform var(--transition);
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      padding: 0 12px 32px;
+      color: var(--primary);
+      display: block;
+    }
+    .logo span { color: white; }
+
+    .menu {
+      list-style: none;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .menu li a {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 11px 14px;
+      border-radius: 10px;
+      color: #94a3b8;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: all var(--transition);
+    }
+    .menu li a:hover {
+      background: rgba(255, 255, 255, 0.06);
+      color: white;
+    }
+    .menu li a.active {
+      background: rgba(37, 99, 235, 0.18);
+      color: #93c5fd;
+    }
+    .menu li a .icon {
+      font-size: 1.15rem;
+      width: 22px;
+      text-align: center;
+    }
+
+    .sidebar-footer {
+      padding: 16px 12px 8px;
+      border-top: 1px solid #1e293b;
+      margin-top: 16px;
+    }
+    .plan-badge {
+      background: rgba(37, 99, 235, 0.15);
+      color: #93c5fd;
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 8px 12px;
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    /* ========== MOBILE HEADER ========== */
+    .mobile-header {
+      display: none;
+      position: sticky;
+      top: 0;
+      z-index: 90;
+      background: white;
+      border-bottom: 1px solid var(--border);
+      padding: 14px 20px;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .mobile-header .logo {
+      padding: 0;
+      font-size: 1.35rem;
+      margin: 0;
+    }
+
+    .menu-toggle {
+      width: 44px;
+      height: 44px;
+      border: none;
+      background: var(--bg);
+      border-radius: 10px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+    }
+    .menu-toggle span {
+      display: block;
+      width: 20px;
+      height: 2px;
+      background: var(--dark);
+      border-radius: 2px;
+      transition: var(--transition);
+    }
+    .menu-toggle[aria-expanded="true"] span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+    .menu-toggle[aria-expanded="true"] span:nth-child(2) {
+      opacity: 0;
+    }
+    .menu-toggle[aria-expanded="true"] span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+
+    /* Overlay */
+    .sidebar-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.5);
+      z-index: 95;
+      opacity: 0;
+      transition: opacity var(--transition);
+    }
+    .sidebar-overlay.visible {
+      display: block;
+      opacity: 1;
+    }
+
+    /* ========== CONTENT ========== */
+    .content {
+      flex: 1;
+      padding: 36px 40px;
+      max-width: 1400px;
+    }
+
+    .top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 36px;
+    }
+    .top h1 {
+      font-size: 1.75rem;
+      font-weight: 800;
+      letter-spacing: -0.6px;
+    }
+    .top p {
+      color: var(--gray);
+      margin-top: 4px;
+      font-size: 0.975rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 11px 20px;
+      border-radius: 11px;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.925rem;
+      transition: all var(--transition);
+      white-space: nowrap;
+      text-decoration: none;
+    }
+    .btn:focus-visible {
+      outline: 3px solid rgba(37, 99, 235, 0.35);
+      outline-offset: 2px;
+    }
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.22);
+    }
+    .btn-primary:hover {
+      background: var(--primary-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(37, 99, 235, 0.3);
+    }
+    .btn-secondary {
+      background: white;
+      color: var(--dark);
+      border: 1.5px solid var(--border);
+    }
+    .btn-secondary:hover {
+      background: var(--bg);
+      border-color: #cbd5e1;
+    }
+    .btn-sm {
+      padding: 9px 16px;
+      font-size: 0.875rem;
+    }
+
+    /* STATS */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+      margin-bottom: 44px;
+    }
+
+    .stat-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      box-shadow: var(--shadow-sm);
+      transition: all var(--transition);
+    }
+    .stat-card:hover {
+      box-shadow: var(--shadow);
+      transform: translateY(-2px);
+    }
+    .stat-card .label {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--gray);
+      margin-bottom: 10px;
+    }
+    .stat-card .number {
+      font-size: 2.2rem;
+      font-weight: 800;
+      letter-spacing: -1px;
+      line-height: 1;
+    }
+    .stat-card .number.accent { color: var(--primary); }
+    .stat-card .trend {
+      margin-top: 10px;
+      font-size: 0.8rem;
+      color: var(--green);
+      font-weight: 500;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .section-header h2 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 6px 12px;
+      background: var(--green-bg);
+      color: var(--green-text);
+      border-radius: 100px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+    .tag.blue {
+      background: #dbeafe;
+      color: #1d4ed8;
+    }
+
+    .properties {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+    }
+
+    .property-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 26px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      transition: all var(--transition);
+    }
+    .property-card:hover {
+      box-shadow: var(--shadow);
+      border-color: #dbeafe;
+      transform: translateY(-3px);
+    }
+
+    .property-card .title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+      margin-bottom: 4px;
+    }
+    .property-card .meta {
+      color: var(--gray);
+      font-size: 0.9rem;
+      margin-bottom: 20px;
+    }
+
+    .property-card .score-block { margin-bottom: 16px; }
+    .property-card .score-label {
+      font-size: 0.85rem;
+      color: var(--gray);
+      margin-bottom: 4px;
+    }
+    .property-card .score {
+      font-size: 2.3rem;
+      font-weight: 800;
+      letter-spacing: -1px;
+      line-height: 1;
+      color: var(--green);
+    }
+    .property-card .score.medium { color: var(--secondary); }
+
+    .property-card .status { margin-bottom: 20px; }
+
+    .property-card .actions {
+      display: flex;
+      gap: 10px;
+      margin-top: auto;
+    }
+    .property-card .actions .btn { flex: 1; }
+
+    .property-card.new-project {
+      border-style: dashed;
+      border-color: #cbd5e1;
+      background: #fafbfc;
+      align-items: flex-start;
+      justify-content: center;
+      min-height: 260px;
+    }
+    .property-card.new-project:hover {
+      border-color: var(--primary);
+      background: #f0f7ff;
+    }
+    .property-card.new-project .title { margin-bottom: 8px; }
+    .property-card.new-project .meta { margin-bottom: 24px; }
+
+    /* ========== RESPONSIVE ========== */
+    @media (max-width: 1100px) {
+      .stats { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 900px) {
+      .mobile-header {
+        display: flex;
+      }
+
+      .sidebar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        height: 100%;
+        transform: translateX(-100%);
+        box-shadow: 8px 0 30px rgba(0,0,0,0.15);
+      }
+
+      .sidebar.open {
+        transform: translateX(0);
+      }
+
+      .content {
+        padding: 24px 20px;
+      }
+
+      .top h1 {
+        font-size: 1.5rem;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .stats {
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+      .stat-card { padding: 18px; }
+      .stat-card .number { font-size: 1.8rem; }
+      .properties { grid-template-columns: 1fr; }
+      .top {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .top .btn { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Mobile Header -->
+  <div class="mobile-header">
+    <a href="index.html" class="logo">IA<span>annonce</span></a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Ouvrir le menu" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+
+  <!-- Overlay -->
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <div class="app">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+      <a href="index.html" class="logo">IA<span>annonce</span></a>
+
+      <ul class="menu">
+        <li><a href="dashboard.html" class="active"><span class="icon">🏠</span> Tableau de bord</a></li>
+        <li><a href="new-property.html"><span class="icon">➕</span> Nouveau bien</a></li>
+        <li><a href="dashboard.html"><span class="icon">📂</span> Mes biens</a></li>
+        <li><a href="#"><span class="icon">🎬</span> Vidéos</a></li>
+        <li><a href="#"><span class="icon">📄</span> Documents</a></li>
+        <li><a href="#"><span class="icon">📱</span> Réseaux sociaux</a></li>
+        <li><a href="#"><span class="icon">📊</span> Analytics</a></li>
+        <li><a href="#"><span class="icon">💳</span> Abonnement</a></li>
+        <li><a href="#"><span class="icon">⚙️</span> Paramètres</a></li>
+      </ul>
+
+      <div class="sidebar-footer">
+        <div class="plan-badge">Plan Pro · 7 / 10 biens</div>
+      </div>
+    </aside>
+
+    <!-- CONTENT -->
+    <main class="content">
+
+      <div class="top">
+        <div>
+          <h1>Bonjour Gabriel 👋</h1>
+          <p>Votre IA marketing immobilier est prête.</p>
+        </div>
+        <a href="new-property.html" class="btn btn-primary">+ Nouveau bien</a>
+      </div>
+
+      <div class="stats">
+        <div class="stat-card">
+          <div class="label">Biens créés</div>
+          <div class="number">12</div>
+          <div class="trend">+3 ce mois</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">Vidéos générées</div>
+          <div class="number">48</div>
+          <div class="trend">+12 ce mois</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">Brochures PDF</div>
+          <div class="number">36</div>
+          <div class="trend">+8 ce mois</div>
+        </div>
+        <div class="stat-card">
+          <div class="label">Score moyen IA</div>
+          <div class="number accent">91%</div>
+          <div class="trend">Excellent</div>
+        </div>
+      </div>
+
+      <div class="section-header">
+        <h2>Mes biens</h2>
+        <span class="tag">PRO : 7 / 10 biens utilisés</span>
+      </div>
+
+      <div class="properties">
+
+        <div class="property-card">
+          <div class="title">🏡 Villa contemporaine</div>
+          <div class="meta">Sion • 6.5 pièces</div>
+
+          <div class="score-block">
+            <div class="score-label">Score marketing IA</div>
+            <div class="score">94%</div>
+          </div>
+
+          <div class="status">
+            <span class="tag">Marketing terminé</span>
+          </div>
+
+          <div class="actions">
+            <a href="#" class="btn btn-primary btn-sm">Voir dossier</a>
+            <a href="#" class="btn btn-secondary btn-sm">Modifier</a>
+          </div>
+        </div>
+
+        <div class="property-card">
+          <div class="title">🏢 Appartement</div>
+          <div class="meta">Vétroz • 4.5 pièces</div>
+
+          <div class="score-block">
+            <div class="score-label">Score marketing IA</div>
+            <div class="score medium">87%</div>
+          </div>
+
+          <div class="status">
+            <span class="tag blue">Prêt à publier</span>
+          </div>
+
+          <div class="actions">
+            <a href="#" class="btn btn-primary btn-sm">Voir dossier</a>
+            <a href="#" class="btn btn-secondary btn-sm">Modifier</a>
+          </div>
+        </div>
+
+        <div class="property-card new-project">
+          <div class="title">➕ Nouveau projet</div>
+          <div class="meta">Créez un nouveau marketing immobilier complet en quelques minutes.</div>
+          <a href="new-property.html" class="btn btn-primary">Créer un bien</a>
+        </div>
+
+      </div>
+
+    </main>
+  </div>
+
+  <script>
+    const menuToggle = document.getElementById('menuToggle');
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('sidebarOverlay');
+
+    function openSidebar() {
+      sidebar.classList.add('open');
+      overlay.classList.add('visible');
+      menuToggle.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeSidebar() {
+      sidebar.classList.remove('open');
+      overlay.classList.remove('visible');
+      menuToggle.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    }
+
+    menuToggle.addEventListener('click', () => {
+      if (sidebar.classList.contains('open')) {
+        closeSidebar();
+      } else {
+        openSidebar();
+      }
+    });
+
+    overlay.addEventListener('click', closeSidebar);
+
+    // Fermer le menu quand on clique sur un lien
+    sidebar.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        if (window.innerWidth <= 900) {
+          closeSidebar();
+        }
+      });
+    });
+
+    // Fermer avec Escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && sidebar.classList.contains('open')) {
+        closeSidebar();
+      }
+    });
+  </script>
+</body>
+</html>
