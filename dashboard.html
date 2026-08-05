@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>IAannonce – Tableau de bord</title>
+  <title>IAnnonce – Tableau de bord</title>
   <meta name="theme-color" content="#0f172a">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -454,7 +454,7 @@
 
   <!-- Mobile Header -->
   <div class="mobile-header">
-    <a href="index.html" class="logo">IA<span>annonce</span></a>
+    <a href="index.html" class="logo">IA<span>nnonce</span></a>
     <button class="menu-toggle" id="menuToggle" aria-label="Ouvrir le menu" aria-expanded="false">
       <span></span>
       <span></span>
@@ -469,7 +469,7 @@
 
     <!-- SIDEBAR -->
     <aside class="sidebar" id="sidebar">
-      <a href="index.html" class="logo">IA<span>annonce</span></a>
+      <a href="index.html" class="logo">IA<span>nnonce</span></a>
 
       <ul class="menu">
         <li><a href="dashboard.html" class="active"><span class="icon">🏠</span> Tableau de bord</a></li>
@@ -493,7 +493,7 @@
 
       <div class="top">
         <div>
-          <h1>Bonjour Gabriel 👋</h1>
+          <h1 id="welcomeUser">Bonjour 👋</h1>
           <p>Votre IA marketing immobilier est prête.</p>
         </div>
         <a href="new-property.html" class="btn btn-primary">+ Nouveau bien</a>
@@ -623,5 +623,31 @@
       }
     });
   </script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase.js"></script>
+
+<script>
+async function loadUser() {
+
+  const { data, error } = await supabaseClient.auth.getUser();
+
+  if (error || !data.user) {
+    window.location.href = "login.html";
+    return;
+  }
+
+  const user = data.user;
+
+  const name = user.user_metadata.full_name || user.email;
+
+  document.getElementById("welcomeUser").innerHTML =
+    "Bonjour " + name + " 👋";
+}
+
+loadUser();
+</script>
+
+  
 </body>
 </html>
