@@ -337,8 +337,13 @@
       const input = document.getElementById('password');
       input.type = input.type === 'password' ? 'text' : 'password';
     }
+    
+</script>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase.js"></script>
 
+<script>
 async function handleLogin(e) {
   e.preventDefault();
 
@@ -346,8 +351,8 @@ async function handleLogin(e) {
   const password = document.getElementById('password').value;
 
   const { data, error } = await supabaseClient.auth.signInWithPassword({
-    email: email,
-    password: password
+    email,
+    password
   });
 
   if (error) {
@@ -357,13 +362,7 @@ async function handleLogin(e) {
 
   window.location.href = "dashboard.html";
 }
-
-
-    
-  </script>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="js/supabase.js"></script>
+</script>
 
   
 </body>
