@@ -1,10 +1,10 @@
-# IAannonce
+# IAnnonce
 
 Copilote marketing immobilier propulsé par l'intelligence artificielle.
 
 ## Description
 
-IAannonce permet de créer automatiquement :
+IAnnonce permet de créer automatiquement :
 - Une annonce immobilière professionnelle
 - Une vidéo cinématique IA
 - Une brochure PDF
