@@ -1,16 +1,43 @@
-## Hi there 👋
+# IAannonce
 
-<!--
-**IAnnonce/IAnnonce** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+Copilote marketing immobilier propulsé par l'intelligence artificielle.
 
-Here are some ideas to get you started:
+## Description
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+IAannonce permet de créer automatiquement :
+- Une annonce immobilière professionnelle
+- Une vidéo cinématique IA
+- Une brochure PDF
+- Des posts pour les réseaux sociaux
+
+À partir de simples photos d'un bien.
+
+## Pages
+
+| Fichier | Description |
+|---------|-------------|
+| `index.html` | Landing page |
+| `login.html` | Connexion |
+| `register.html` | Inscription |
+| `dashboard.html` | Tableau de bord |
+| `new-property.html` | Création d'un bien |
+| `result.html` | Dossier marketing généré |
+
+## Stack actuelle
+
+- HTML / CSS / JavaScript (vanilla)
+- Design system cohérent
+- Responsive (mobile + desktop)
+
+## Déploiement
+
+Projet prévu pour être hébergé sur **Vercel** via GitHub.
+
+## Statut
+
+Prototype fonctionnel (front-end).  
+Authentification, IA réelle et paiement à venir.
+
+## Auteur
+
+Projet en cours de développement par Swiss Administration & Accounting SARL, 1963 Vétroz.
