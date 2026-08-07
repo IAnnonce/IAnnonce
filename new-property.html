@@ -3,13 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Créer un bien – IAnnonce</title>
+  <title>Créer un bien – IAannonce</title>
   <meta name="theme-color" content="#2563eb">
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
   <style>
     :root {
       --primary: #2563eb;
@@ -33,13 +31,11 @@
       --shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
       --transition: 0.22s cubic-bezier(0.4, 0, 0.2, 1);
     }
-
     *, *::before, *::after {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
-
     body {
       font-family: 'Inter', system-ui, -apple-system, sans-serif;
       background: var(--bg);
@@ -47,20 +43,17 @@
       line-height: 1.5;
       -webkit-font-smoothing: antialiased;
     }
-
     .container {
       max-width: 860px;
       margin: 0 auto;
       padding: 32px 24px 80px;
     }
-
     .header {
       display: flex;
       justify-content: space-between;
       align-items: center;
       margin-bottom: 40px;
     }
-
     .logo {
       font-size: 1.5rem;
       font-weight: 800;
@@ -69,7 +62,6 @@
       text-decoration: none;
     }
     .logo span { color: var(--dark); }
-
     .back-link {
       font-size: 0.95rem;
       font-weight: 500;
@@ -78,7 +70,6 @@
       transition: color var(--transition);
     }
     .back-link:hover { color: var(--primary); }
-
     .page-title { margin-bottom: 36px; }
     .page-title h1 {
       font-size: clamp(1.7rem, 4vw, 2.1rem);
@@ -90,7 +81,6 @@
       color: var(--gray);
       font-size: 1.05rem;
     }
-
     /* Stepper */
     .steps {
       display: flex;
@@ -99,7 +89,6 @@
       overflow-x: auto;
       padding-bottom: 4px;
     }
-
     .step {
       display: flex;
       align-items: center;
@@ -144,7 +133,6 @@
       background: var(--primary);
       color: white;
     }
-
     .box {
       background: white;
       border: 1px solid var(--border);
@@ -162,16 +150,13 @@
       align-items: center;
       gap: 10px;
     }
-
     .grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 18px 20px;
     }
-
     .field { margin-bottom: 0; }
     .field.full { grid-column: 1 / -1; }
-
     label {
       display: block;
       font-size: 0.9rem;
@@ -183,7 +168,6 @@
       color: var(--red);
       margin-left: 2px;
     }
-
     input, select, textarea {
       width: 100%;
       padding: 13px 15px;
@@ -210,14 +194,12 @@
       min-height: 100px;
       resize: vertical;
     }
-
     select {
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2364748b' d='M2.5 4.5L6 8l3.5-3.5'/%3E%3C/svg%3E");
       background-repeat: no-repeat;
       background-position: right 14px center;
       padding-right: 36px;
     }
-
     .error-msg {
       display: none;
       font-size: 0.82rem;
@@ -227,14 +209,12 @@
     .error-msg.visible {
       display: block;
     }
-
     .char-count {
       font-size: 0.8rem;
       color: var(--gray-light);
       text-align: right;
       margin-top: 6px;
     }
-
     /* Upload */
     .upload-zone {
       border: 2px dashed #cbd5e1;
@@ -273,7 +253,6 @@
       font-size: 0.85rem;
       color: var(--gray-light);
     }
-
     /* Buttons */
     .btn {
       display: inline-flex;
@@ -319,14 +298,12 @@
       font-size: 1.05rem;
     }
     .btn-block { width: 100%; }
-
     .actions {
       display: flex;
       justify-content: flex-end;
       gap: 12px;
       margin-top: 28px;
     }
-
     /* Analyse */
     #analyse { display: none; }
     .progress-wrap { margin: 28px 0 20px; }
@@ -353,7 +330,6 @@
       font-size: 0.95rem;
       padding-left: 4px;
     }
-
     /* Result */
     #result { display: none; }
     .result-card {
@@ -409,7 +385,6 @@
       color: var(--green);
       font-size: 1.25rem;
     }
-
     @media (max-width: 700px) {
       .container { padding: 24px 16px 60px; }
       .grid { grid-template-columns: 1fr; }
@@ -427,11 +402,9 @@
   </style>
 </head>
 <body>
-
   <div class="container">
-
     <div class="header">
-      <a href="index.html" class="logo">IA<span>nnonce</span></a>
+      <a href="index.html" class="logo">IA<span>annonce</span></a>
       <a href="dashboard.html" class="back-link">← Retour dashboard</a>
     </div>
 
@@ -458,7 +431,6 @@
     <!-- ========== STEP 1 ========== -->
     <div class="box" id="step-1">
       <h2>🏠 Informations du bien</h2>
-
       <form id="propertyForm" novalidate>
         <div class="grid">
           <div class="field">
@@ -473,7 +445,6 @@
             </select>
             <div class="error-msg" id="error-type">Veuillez sélectionner un type de bien</div>
           </div>
-
           <div class="field">
             <label for="transaction">Transaction <span class="required">*</span></label>
             <select id="transaction" required>
@@ -483,36 +454,30 @@
             </select>
             <div class="error-msg" id="error-transaction">Veuillez choisir une transaction</div>
           </div>
-
           <div class="field">
             <label for="location">Localisation <span class="required">*</span></label>
             <input type="text" id="location" placeholder="Ex : Vétroz, Valais" required>
             <div class="error-msg" id="error-location">La localisation est obligatoire</div>
           </div>
-
           <div class="field">
             <label for="price">Prix (CHF) <span class="required">*</span></label>
             <input type="text" id="price" placeholder="890 000" required>
             <div class="error-msg" id="error-price">Indiquez un prix valide</div>
           </div>
-
           <div class="field">
             <label for="surface">Surface (m²)</label>
             <input type="text" id="surface" placeholder="95">
           </div>
-
           <div class="field">
             <label for="rooms">Nombre de pièces</label>
             <input type="text" id="rooms" placeholder="4.5">
           </div>
-
           <div class="field full">
             <label for="highlights">Points forts</label>
             <textarea id="highlights" placeholder="Vue montagne, terrasse, rénové, parking, luminosité..." maxlength="500"></textarea>
             <div class="char-count"><span id="charCount">0</span> / 500</div>
           </div>
         </div>
-
         <div class="actions">
           <button type="button" class="btn btn-primary" id="btnStep1" onclick="validateAndGoStep2()">
             Continuer → Photos
@@ -524,16 +489,13 @@
     <!-- ========== STEP 2 ========== -->
     <div class="box" id="step-2" style="display:none;">
       <h2>📸 Photos du bien</h2>
-
       <div class="upload-zone" id="upload-zone" role="button" tabindex="0">
         <div class="icon">📷</div>
         <h3>Déposez vos photos ici</h3>
         <p>JPG, PNG • Minimum 5 photos recommandées</p>
         <p class="hint">Glissez-déposez ou cliquez pour sélectionner</p>
       </div>
-
       <input type="file" id="file-input" multiple accept="image/jpeg,image/png,image/webp" style="display:none;">
-
       <div class="actions">
         <button type="button" class="btn btn-secondary" onclick="goToStep(1)">← Retour</button>
         <button type="button" class="btn btn-primary" id="btnStep2" onclick="startAI()" disabled>
@@ -558,26 +520,20 @@
       <div class="result-card">
         <div class="emoji">🎉</div>
         <h2>Votre pack marketing est prêt !</h2>
-
         <ul class="result-list">
           <li>Annonce immobilière professionnelle</li>
           <li>Vidéo cinématique IA</li>
           <li>Brochure PDF premium</li>
           <li>Publications réseaux sociaux</li>
         </ul>
-
         <div class="score-badge">
           Score marketing IA : <span>94/100</span>
         </div>
-
-       <a href="result.html" class="btn btn-primary btn-lg btn-block">
-  Voir mon dossier complet →
-</a>
-          Débloquer mon pack — 29 CHF
-        </button>
+        <a href="result.html" class="btn btn-primary btn-lg btn-block">
+          Voir mon dossier complet →
+        </a>
       </div>
     </div>
-
   </div>
 
   <script>
@@ -591,39 +547,33 @@
     // ========== Validation Step 1 ==========
     function validateAndGoStep2() {
       let isValid = true;
-
       const fields = [
         { id: 'type', errorId: 'error-type' },
         { id: 'transaction', errorId: 'error-transaction' },
         { id: 'location', errorId: 'error-location' },
         { id: 'price', errorId: 'error-price' }
       ];
-
       fields.forEach(field => {
         const el = document.getElementById(field.id);
         const error = document.getElementById(field.errorId);
         el.classList.remove('error');
         error.classList.remove('visible');
-
         if (!el.value.trim()) {
           el.classList.add('error');
           error.classList.add('visible');
           isValid = false;
         }
       });
-
-      // Validation basique du prix (chiffres)
+      // Validation basique du prix
       const price = document.getElementById('price');
       if (price.value.trim() && !/[\d]/.test(price.value)) {
         price.classList.add('error');
         document.getElementById('error-price').classList.add('visible');
         isValid = false;
       }
-
       if (isValid) {
         goToStep(2);
       } else {
-        // Scroll vers la première erreur
         const firstError = document.querySelector('.error');
         if (firstError) firstError.focus();
       }
@@ -654,7 +604,6 @@
       if (e.key === 'Enter' || e.key === ' ') fileInput.click();
     });
 
-    // Drag & drop
     uploadZone.addEventListener('dragover', (e) => {
       e.preventDefault();
       uploadZone.classList.add('dragover');
@@ -674,7 +623,7 @@
 
     function handleFiles(files) {
       selectedFiles = Array.from(files).filter(f => f.type.startsWith('image/'));
-      
+     
       if (selectedFiles.length > 0) {
         uploadZone.classList.add('has-files');
         uploadZone.innerHTML = `
@@ -718,9 +667,7 @@
         alert('Veuillez sélectionner au moins une photo');
         return;
       }
-
       goToStep(3);
-
       const bar = document.getElementById('bar');
       const messages = document.getElementById('messages');
       messages.innerHTML = '';
@@ -742,14 +689,12 @@
       const interval = setInterval(() => {
         progress += 12.5;
         bar.style.width = Math.min(progress, 100) + '%';
-
         const index = Math.floor(progress / 12.5) - 1;
         if (index >= 0 && index < steps.length) {
           const p = document.createElement('p');
           p.textContent = steps[index];
           messages.appendChild(p);
         }
-
         if (progress >= 100) {
           clearInterval(interval);
           setTimeout(() => goToStep(4), 900);
