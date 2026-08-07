@@ -5,11 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>IAnnonce – Tableau de bord</title>
   <meta name="theme-color" content="#0f172a">
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
   <style>
     :root {
       --primary: #2563eb;
@@ -31,13 +29,11 @@
       --shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
       --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     }
-
     *, *::before, *::after {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
-
     body {
       font-family: 'Inter', system-ui, -apple-system, sans-serif;
       background: var(--bg);
@@ -45,9 +41,7 @@
       line-height: 1.5;
       -webkit-font-smoothing: antialiased;
     }
-
     a { color: inherit; text-decoration: none; }
-
     .app {
       display: flex;
       min-height: 100vh;
@@ -68,7 +62,6 @@
       z-index: 100;
       transition: transform var(--transition);
     }
-
     .logo {
       font-size: 1.5rem;
       font-weight: 800;
@@ -78,7 +71,6 @@
       display: block;
     }
     .logo span { color: white; }
-
     .menu {
       list-style: none;
       flex: 1;
@@ -86,7 +78,6 @@
       flex-direction: column;
       gap: 2px;
     }
-
     .menu li a {
       display: flex;
       align-items: center;
@@ -111,7 +102,6 @@
       width: 22px;
       text-align: center;
     }
-
     .sidebar-footer {
       padding: 16px 12px 8px;
       border-top: 1px solid #1e293b;
@@ -139,13 +129,11 @@
       align-items: center;
       justify-content: space-between;
     }
-
     .mobile-header .logo {
       padding: 0;
       font-size: 1.35rem;
       margin: 0;
     }
-
     .menu-toggle {
       width: 44px;
       height: 44px;
@@ -198,7 +186,6 @@
       padding: 36px 40px;
       max-width: 1400px;
     }
-
     .top {
       display: flex;
       justify-content: space-between;
@@ -216,7 +203,6 @@
       margin-top: 4px;
       font-size: 0.975rem;
     }
-
     .btn {
       display: inline-flex;
       align-items: center;
@@ -267,7 +253,6 @@
       gap: 18px;
       margin-bottom: 44px;
     }
-
     .stat-card {
       background: white;
       border: 1px solid var(--border);
@@ -313,7 +298,6 @@
       font-weight: 700;
       letter-spacing: -0.3px;
     }
-
     .tag {
       display: inline-flex;
       align-items: center;
@@ -334,7 +318,6 @@
       grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
       gap: 20px;
     }
-
     .property-card {
       background: white;
       border: 1px solid var(--border);
@@ -350,7 +333,6 @@
       border-color: #dbeafe;
       transform: translateY(-3px);
     }
-
     .property-card .title {
       font-size: 1.15rem;
       font-weight: 700;
@@ -362,7 +344,6 @@
       font-size: 0.9rem;
       margin-bottom: 20px;
     }
-
     .property-card .score-block { margin-bottom: 16px; }
     .property-card .score-label {
       font-size: 0.85rem;
@@ -377,16 +358,13 @@
       color: var(--green);
     }
     .property-card .score.medium { color: var(--secondary); }
-
     .property-card .status { margin-bottom: 20px; }
-
     .property-card .actions {
       display: flex;
       gap: 10px;
       margin-top: auto;
     }
     .property-card .actions .btn { flex: 1; }
-
     .property-card.new-project {
       border-style: dashed;
       border-color: #cbd5e1;
@@ -402,16 +380,69 @@
     .property-card.new-project .title { margin-bottom: 8px; }
     .property-card.new-project .meta { margin-bottom: 24px; }
 
+    /* ========== FOOTER ========== */
+    footer {
+      background: var(--dark);
+      color: var(--gray-light);
+      padding: 64px 0 36px;
+      margin-top: 60px;
+    }
+    .footer-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.6fr 1fr 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 48px;
+    }
+    .footer-brand .logo {
+      margin-bottom: 16px;
+      display: inline-flex;
+      padding: 0;
+      font-size: 1.5rem;
+    }
+    .footer-brand .logo span { color: white; }
+    .footer-brand p {
+      max-width: 280px;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+    footer h4 {
+      color: white;
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 18px;
+    }
+    footer ul { list-style: none; }
+    footer li { margin-bottom: 10px; }
+    footer a {
+      font-size: 0.925rem;
+      transition: color var(--transition);
+    }
+    footer a:hover { color: white; }
+    .footer-bottom {
+      border-top: 1px solid #1e293b;
+      padding-top: 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 0.875rem;
+    }
+
     /* ========== RESPONSIVE ========== */
     @media (max-width: 1100px) {
       .stats { grid-template-columns: repeat(2, 1fr); }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
     }
-
     @media (max-width: 900px) {
       .mobile-header {
         display: flex;
       }
-
       .sidebar {
         position: fixed;
         left: 0;
@@ -420,20 +451,16 @@
         transform: translateX(-100%);
         box-shadow: 8px 0 30px rgba(0,0,0,0.15);
       }
-
       .sidebar.open {
         transform: translateX(0);
       }
-
       .content {
         padding: 24px 20px;
       }
-
       .top h1 {
         font-size: 1.5rem;
       }
     }
-
     @media (max-width: 600px) {
       .stats {
         grid-template-columns: 1fr 1fr;
@@ -447,11 +474,11 @@
         align-items: flex-start;
       }
       .top .btn { width: 100%; }
+      .footer-grid { grid-template-columns: 1fr; gap: 28px; }
     }
   </style>
 </head>
 <body>
-
   <!-- Mobile Header -->
   <div class="mobile-header">
     <a href="index.html" class="logo">IA<span>nnonce</span></a>
@@ -466,11 +493,9 @@
   <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
   <div class="app">
-
     <!-- SIDEBAR -->
     <aside class="sidebar" id="sidebar">
       <a href="index.html" class="logo">IA<span>nnonce</span></a>
-
       <ul class="menu">
         <li><a href="dashboard.html" class="active"><span class="icon">🏠</span> Tableau de bord</a></li>
         <li><a href="new-property.html"><span class="icon">➕</span> Nouveau bien</a></li>
@@ -482,7 +507,6 @@
         <li><a href="#"><span class="icon">💳</span> Abonnement</a></li>
         <li><a href="#"><span class="icon">⚙️</span> Paramètres</a></li>
       </ul>
-
       <div class="sidebar-footer">
         <div class="plan-badge">Plan Pro · 7 / 10 biens</div>
       </div>
@@ -490,10 +514,9 @@
 
     <!-- CONTENT -->
     <main class="content">
-
       <div class="top">
         <div>
-          <h1 id="welcomeUser">Bonjour 👋</h1>
+          <h1>Bonjour Gabriel 👋</h1>
           <p>Votre IA marketing immobilier est prête.</p>
         </div>
         <a href="new-property.html" class="btn btn-primary">+ Nouveau bien</a>
@@ -528,22 +551,18 @@
       </div>
 
       <div class="properties">
-
         <div class="property-card">
           <div class="title">🏡 Villa contemporaine</div>
           <div class="meta">Sion • 6.5 pièces</div>
-
           <div class="score-block">
             <div class="score-label">Score marketing IA</div>
             <div class="score">94%</div>
           </div>
-
           <div class="status">
             <span class="tag">Marketing terminé</span>
           </div>
-
           <div class="actions">
-            <a href="#" class="btn btn-primary btn-sm">Voir dossier</a>
+            <a href="resultat.html" class="btn btn-primary btn-sm">Voir dossier</a>
             <a href="#" class="btn btn-secondary btn-sm">Modifier</a>
           </div>
         </div>
@@ -551,18 +570,15 @@
         <div class="property-card">
           <div class="title">🏢 Appartement</div>
           <div class="meta">Vétroz • 4.5 pièces</div>
-
           <div class="score-block">
             <div class="score-label">Score marketing IA</div>
             <div class="score medium">87%</div>
           </div>
-
           <div class="status">
             <span class="tag blue">Prêt à publier</span>
           </div>
-
           <div class="actions">
-            <a href="#" class="btn btn-primary btn-sm">Voir dossier</a>
+            <a href="resultat.html" class="btn btn-primary btn-sm">Voir dossier</a>
             <a href="#" class="btn btn-secondary btn-sm">Modifier</a>
           </div>
         </div>
@@ -572,11 +588,49 @@
           <div class="meta">Créez un nouveau marketing immobilier complet en quelques minutes.</div>
           <a href="new-property.html" class="btn btn-primary">Créer un bien</a>
         </div>
-
       </div>
-
     </main>
   </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="logo">IA<span>nnonce</span></a>
+          <p>Le copilote marketing immobilier propulsé par l’intelligence artificielle. Créez des annonces qui vendent vraiment.</p>
+        </div>
+        <div>
+          <h4>Produit</h4>
+          <ul>
+            <li><a href="index.html#fonctionnalites">Fonctionnalités</a></li>
+            <li><a href="index.html#demo">Démonstration</a></li>
+            <li><a href="index.html#tarifs">Tarifs</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Entreprise</h4>
+          <ul>
+            <li><a href="#">À propos</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Légal</h4>
+          <ul>
+            <li><a href="#">Confidentialité</a></li>
+            <li><a href="#">Conditions</a></li>
+            <li><a href="#">Mentions légales</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2025 IAnnonce.ch. Tous droits réservés.</span>
+        <span>Swiss Administration & Accounting SARL, 1963 Vétroz</span>
+      </div>
+    </div>
+  </footer>
 
   <script>
     const menuToggle = document.getElementById('menuToggle');
@@ -589,7 +643,6 @@
       menuToggle.setAttribute('aria-expanded', 'true');
       document.body.style.overflow = 'hidden';
     }
-
     function closeSidebar() {
       sidebar.classList.remove('open');
       overlay.classList.remove('visible');
@@ -604,10 +657,8 @@
         openSidebar();
       }
     });
-
     overlay.addEventListener('click', closeSidebar);
 
-    // Fermer le menu quand on clique sur un lien
     sidebar.querySelectorAll('a').forEach(link => {
       link.addEventListener('click', () => {
         if (window.innerWidth <= 900) {
@@ -616,38 +667,11 @@
       });
     });
 
-    // Fermer avec Escape
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && sidebar.classList.contains('open')) {
         closeSidebar();
       }
     });
   </script>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="js/supabase.js"></script>
-
-<script>
-async function loadUser() {
-
-  const { data, error } = await supabaseClient.auth.getUser();
-
-  if (error || !data.user) {
-    window.location.href = "login.html";
-    return;
-  }
-
-  const user = data.user;
-
-  const name = user.user_metadata.full_name || user.email;
-
-  document.getElementById("welcomeUser").innerHTML =
-    "Bonjour " + name + " 👋";
-}
-
-loadUser();
-</script>
-
-  
 </body>
 </html>
