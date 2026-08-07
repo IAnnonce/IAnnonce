@@ -147,6 +147,11 @@
       transform: translateY(-1px);
       box-shadow: 0 6px 20px rgba(37, 99, 235, 0.35);
     }
+    .btn-primary:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+      transform: none;
+    }
     .btn-outline {
       background: transparent;
       border: 1.5px solid var(--border);
@@ -486,7 +491,7 @@
           <div class="form-grid">
             <div class="form-group">
               <label for="type">Type de bien</label>
-              <select id="type" name="type" required>
+              <select id="type" name="type">
                 <option value="">Sélectionner…</option>
                 <option value="appartement">Appartement</option>
                 <option value="maison">Maison / Villa</option>
@@ -498,7 +503,7 @@
 
             <div class="form-group">
               <label for="transaction">Transaction</label>
-              <select id="transaction" name="transaction" required>
+              <select id="transaction" name="transaction">
                 <option value="">Sélectionner…</option>
                 <option value="vente">À vendre</option>
                 <option value="location">À louer</option>
@@ -507,7 +512,7 @@
 
             <div class="form-group full">
               <label for="address">Adresse complète</label>
-              <input type="text" id="address" name="address" placeholder="Ex. : Rue du Rhône 12, 1950 Sion" required>
+              <input type="text" id="address" name="address" placeholder="Ex. : Rue du Rhône 12, 1950 Sion">
             </div>
 
             <div class="form-group">
@@ -537,7 +542,7 @@
 
             <div class="form-group full">
               <label>Photos du bien</label>
-              <div class="upload-zone" onclick="document.getElementById('photos').click()">
+              <div class="upload-zone" id="uploadZone">
                 <div class="icon">📸</div>
                 <h3>Déposez vos photos ici</h3>
                 <p>JPG, PNG • Minimum 5 photos recommandées • Max 20 Mo</p>
@@ -548,7 +553,7 @@
 
           <div class="form-actions">
             <a href="index.html" class="btn btn-outline">Annuler</a>
-            <button type="submit" class="btn btn-primary btn-lg">
+            <button type="button" id="submitBtn" class="btn btn-primary btn-lg">
               Lancer l’analyse IA →
             </button>
           </div>
@@ -600,22 +605,40 @@
     // Menu mobile
     const toggle = document.querySelector('.menu-toggle');
     const navLinks = document.querySelector('.nav-links');
-    toggle.addEventListener('click', () => {
-      const isOpen = navLinks.classList.toggle('open');
-      toggle.setAttribute('aria-expanded', isOpen);
-    });
-    navLinks.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        navLinks.classList.remove('open');
-        toggle.setAttribute('aria-expanded', 'false');
+    if (toggle && navLinks) {
+      toggle.addEventListener('click', () => {
+        const isOpen = navLinks.classList.toggle('open');
+        toggle.setAttribute('aria-expanded', isOpen);
       });
-    });
+      navLinks.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          navLinks.classList.remove('open');
+          toggle.setAttribute('aria-expanded', 'false');
+        });
+      });
+    }
 
-    // Simulation soumission → redirection vers résultat
-    document.getElementById('property-form').addEventListener('submit', function(e) {
-      e.preventDefault();
-      window.location.href = 'resultat.html';
-    });
+    // Upload zone
+    const uploadZone = document.getElementById('uploadZone');
+    const photosInput = document.getElementById('photos');
+    if (uploadZone && photosInput) {
+      uploadZone.addEventListener('click', () => photosInput.click());
+    }
+
+    // Bouton principal – redirection forcée
+    const submitBtn = document.getElementById('submitBtn');
+    if (submitBtn) {
+      submitBtn.addEventListener('click', function() {
+        // Feedback visuel
+        this.disabled = true;
+        this.textContent = 'Analyse en cours…';
+
+        // Redirection après un court délai (pour voir le feedback)
+        setTimeout(() => {
+          window.location.href = 'resultat.html';
+        }, 600);
+      });
+    }
   </script>
 </body>
 </html>
