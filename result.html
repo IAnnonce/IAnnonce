@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>IAnnonce – Résultat</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', system-ui, sans-serif; }
     body {
@@ -14,7 +14,6 @@
       min-height: 100vh;
     }
     .wrap { max-width: 1100px; margin: 0 auto; }
-
     .header {
       display: flex;
       justify-content: space-between;
@@ -23,12 +22,18 @@
       flex-wrap: wrap;
       gap: 12px;
     }
+    /* Logo identique à index.html */
     .logo {
-      font-size: 22px;
-      font-weight: 700;
+      font-size: 1.55rem;
+      font-weight: 800;
       color: #2563eb;
+      letter-spacing: -0.6px;
+      display: flex;
+      align-items: center;
+      gap: 2px;
       text-decoration: none;
     }
+    .logo span { color: #0f172a; }
     .score-box {
       background: #fff;
       padding: 12px 20px;
@@ -46,7 +51,6 @@
       font-weight: 700;
       color: #16a34a;
     }
-
     .stepper {
       display: flex;
       gap: 8px;
@@ -66,7 +70,6 @@
       font-size: 11px; font-weight: 600;
     }
     .step.done .step-num { background: #16a34a; color: #fff; }
-
     .hero {
       background: #fff;
       border-radius: 18px;
@@ -84,7 +87,6 @@
       font-size: 14px;
       line-height: 1.5;
     }
-
     .grid {
       display: grid;
       grid-template-columns: 1fr;
@@ -140,7 +142,6 @@
       background: #2563eb;
       color: #fff;
     }
-
     .actions {
       display: flex;
       flex-direction: column;
@@ -150,10 +151,9 @@
       width: 100%;
       padding: 15px;
     }
-
     @media (min-width: 640px) {
       body { padding: 32px 20px; }
-      .logo { font-size: 26px; }
+      .logo { font-size: 1.7rem; }
       .score { font-size: 30px; }
       .hero { padding: 32px 36px; }
       .hero h1 { font-size: 26px; }
@@ -172,25 +172,22 @@
 <body>
   <div class="wrap">
     <div class="header">
-      <a href="/" class="logo">🏡 IAnnonce</a>
+      <a href="index.html" class="logo">IA<span>nnonce</span></a>
       <div class="score-box">
         <span>Marketing Score</span>
         <div class="score">97/100</div>
       </div>
     </div>
-
     <div class="stepper">
       <div class="step done"><span class="step-num">✓</span> Infos</div>
       <div class="step done"><span class="step-num">✓</span> Photos</div>
       <div class="step done"><span class="step-num">✓</span> Analyse IA</div>
       <div class="step done"><span class="step-num">✓</span> Résultat</div>
     </div>
-
     <div class="hero">
       <h1>🎉 Votre campagne immobilière est prête</h1>
       <p>IAnnonce a transformé vos photos en un marketing professionnel complet (annonce, vidéo, brochure et réseaux sociaux).</p>
     </div>
-
     <div class="grid">
       <div class="card">
         <div class="icon">📝</div>
@@ -198,41 +195,35 @@
         <p>Villa contemporaine exceptionnelle offrant des espaces lumineux, une architecture moderne et un environnement privilégié.</p>
         <button class="btn btn-secondary">Voir l’annonce</button>
       </div>
-
       <div class="card">
         <div class="icon">🎬</div>
         <h2>Film Immobilier IA</h2>
         <p>Votre film de présentation cinématique a été créé automatiquement.</p>
         <div class="preview">▶️</div>
       </div>
-
       <div class="card">
         <div class="icon">📄</div>
         <h2>Brochure Premium</h2>
         <p>Une brochure professionnelle prête à envoyer aux acheteurs.</p>
         <button class="btn btn-secondary">Télécharger PDF</button>
       </div>
-
       <div class="card">
         <div class="icon">📱</div>
         <h2>Réseaux sociaux</h2>
         <p>Publications optimisées pour Instagram, Facebook et LinkedIn.</p>
         <button class="btn btn-secondary">Voir les posts</button>
       </div>
-
       <div class="card">
         <div class="icon">✨</div>
         <h2>Photos améliorées</h2>
         <p>Images optimisées par IA : luminosité, couleurs, netteté et rendu professionnel.</p>
       </div>
-
       <div class="card">
         <div class="icon">🌍</div>
         <h2>Versions internationales</h2>
         <p>Annonce disponible en français, anglais, allemand et italien.</p>
       </div>
     </div>
-
     <div class="actions">
       <button class="btn btn-primary">🚀 Télécharger le dossier complet</button>
       <button class="btn btn-secondary">Partager</button>
