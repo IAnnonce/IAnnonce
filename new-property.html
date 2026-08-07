@@ -161,14 +161,13 @@
       font-size: 1.05rem;
       border-radius: 14px;
     }
-    .btn-full { width: 100%; }
 
     /* MAIN */
     main {
       padding: 110px 0 80px;
     }
 
-    /* Stepper */
+    /* Stepper – 3 étapes */
     .stepper {
       display: flex;
       justify-content: space-between;
@@ -331,7 +330,7 @@
       justify-content: space-between;
       align-items: center;
       gap: 16px;
-      margin-top: 8px;
+      margin-top: 32px;
     }
     .form-actions .btn {
       min-width: 160px;
@@ -431,7 +430,7 @@
         flex-direction: column-reverse;
       }
       .form-actions .btn { width: 100%; }
-      .step-label { font-size: 11px; }
+      .step-label { font-size: 12px; }
       .footer-grid { grid-template-columns: 1fr; gap: 28px; }
     }
     @media (max-width: 480px) {
@@ -462,22 +461,18 @@
 
   <main>
     <div class="container">
-      <!-- Stepper -->
+      <!-- Stepper 3 étapes -->
       <div class="stepper">
         <div class="step active">
           <div class="step-num">1</div>
-          <div class="step-label">Infos</div>
+          <div class="step-label">Infos et photos</div>
         </div>
         <div class="step">
           <div class="step-num">2</div>
-          <div class="step-label">Photos</div>
-        </div>
-        <div class="step">
-          <div class="step-num">3</div>
           <div class="step-label">Analyse IA</div>
         </div>
         <div class="step">
-          <div class="step-num">4</div>
+          <div class="step-num">3</div>
           <div class="step-label">Résultat</div>
         </div>
       </div>
@@ -485,7 +480,7 @@
       <!-- Formulaire -->
       <div class="form-card">
         <h1>Informations du bien</h1>
-        <p class="subtitle">Renseignez les détails principaux. L’IA s’occupera du reste.</p>
+        <p class="subtitle">Renseignez les détails et ajoutez vos photos. L’IA s’occupe du reste.</p>
 
         <form id="property-form">
           <div class="form-grid">
@@ -551,7 +546,7 @@
             </div>
           </div>
 
-          <div class="form-actions" style="margin-top: 32px;">
+          <div class="form-actions">
             <a href="index.html" class="btn btn-outline">Annuler</a>
             <button type="submit" class="btn btn-primary btn-lg">
               Lancer l’analyse IA →
@@ -619,7 +614,6 @@
     // Simulation soumission → redirection vers résultat
     document.getElementById('property-form').addEventListener('submit', function(e) {
       e.preventDefault();
-      // Pour la démo : on redirige directement vers la page résultat
       window.location.href = 'resultat.html';
     });
   </script>
