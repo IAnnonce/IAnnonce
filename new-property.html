@@ -471,6 +471,19 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
+    // ========== CONFIG SUPABASE ==========
+    const SUPABASE_URL = "https://udubddnueiupdjewkzyp.supabase.co";
+    const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVkdWJkZG51ZWl1cGRqZXdrenlwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODU5MDk4NjYsImV4cCI6MjEwMTQ4NTg2Nn0.zHQM_cP5Ts7-6N2N2XbhSfghMGkZGvpTK2hHfGV5P3U";
+
+    let supabaseClient = null;
+    try {
+      if (window.supabase) {
+        supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+      }
+    } catch (e) {
+      console.warn("Supabase non initialisé");
+    }
+
     // ========== VARIABLES ==========
     let selectedFiles = [];
 
@@ -507,7 +520,9 @@
         }
       });
 
-      if (valid) goToStep(2);
+      if (valid) {
+        goToStep(2);
+      }
     }
 
     // ========== UPLOAD ==========
@@ -572,26 +587,25 @@
       }, 750);
     }
 
-    // ========== SUPABASE (non-bloquant) ==========
+    // ========== LIEN RETOUR ==========
     async function setupBackLink() {
       const backLink = document.getElementById('backLink');
       if (!backLink) return;
 
+      // Valeur par défaut
+      backLink.href = 'index.html';
+      backLink.textContent = '← Retour à l’accueil';
+
+      if (!supabaseClient) return;
+
       try {
-        const SUPABASE_URL = "https://udubddnueiupdjewkzyp.supabase.co";
-        const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVkdWJkZG51ZWl1cGRqZXdrenlwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODU5MDk4NjYsImV4cCI6MjEwMTQ4NTg2Nn0.zHQM_cP5Ts7-6N2N2XbhSfghMGkZGvpTK2hHfGV5P3U"; // ← remplace par ta vraie clé
-
-        if (!window.supabase) return;
-
-        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-        const { data: { session } } = await supabase.auth.getSession();
-
+        const { data: { session } } = await supabaseClient.auth.getSession();
         if (session) {
           backLink.href = 'dashboard.html';
           backLink.textContent = '← Retour au Dashboard';
         }
       } catch (e) {
-        console.warn('Supabase non disponible');
+        console.warn('Session Supabase non disponible');
       }
     }
 
