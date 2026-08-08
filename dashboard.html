@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>IAnnonce – Tableau de bord</title>
   <meta name="theme-color" content="#0f172a">
+  <meta name="description" content="Tableau de bord IAnnonce – votre copilote marketing immobilier propulsé par l'intelligence artificielle.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -23,31 +24,34 @@
       --green: #10b981;
       --green-bg: #dcfce7;
       --green-text: #15803d;
+      --orange: #f59e0b;
+      --orange-bg: #fef3c7;
+      --orange-text: #b45309;
+      --red: #ef4444;
+      --red-bg: #fee2e2;
+      --red-text: #b91c1c;
       --radius: 14px;
       --radius-lg: 18px;
       --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.04);
       --shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
       --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    *, *::before, *::after {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
     body {
-      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
       background: var(--bg);
       color: var(--dark);
       line-height: 1.5;
       -webkit-font-smoothing: antialiased;
     }
+    body.menu-open { overflow: hidden; }
     a { color: inherit; text-decoration: none; }
-    .app {
-      display: flex;
-      min-height: 100vh;
-    }
+    button, input, textarea, select { font: inherit; }
 
-    /* ========== SIDEBAR ========== */
+    .app { display: flex; min-height: 100vh; }
+
+    /* SIDEBAR */
     .sidebar {
       width: 260px;
       background: var(--dark);
@@ -101,6 +105,7 @@
       font-size: 1.15rem;
       width: 22px;
       text-align: center;
+      flex-shrink: 0;
     }
     .sidebar-footer {
       padding: 16px 12px 8px;
@@ -117,7 +122,7 @@
       text-align: center;
     }
 
-    /* ========== MOBILE HEADER ========== */
+    /* MOBILE HEADER */
     .mobile-header {
       display: none;
       position: sticky;
@@ -129,17 +134,13 @@
       align-items: center;
       justify-content: space-between;
     }
-   .mobile-header .logo {
-  padding: 0;
-  margin: 0;
-  font-size: 1.35rem;
-  color: var(--primary);
-}
-
-.mobile-header .logo span {
-  color: var(--dark);
-}
-
+    .mobile-header .logo {
+      padding: 0;
+      margin: 0;
+      font-size: 1.35rem;
+      color: var(--primary);
+    }
+    .mobile-header .logo span { color: var(--dark); }
     .menu-toggle {
       width: 44px;
       height: 44px;
@@ -164,14 +165,11 @@
     .menu-toggle[aria-expanded="true"] span:nth-child(1) {
       transform: translateY(7px) rotate(45deg);
     }
-    .menu-toggle[aria-expanded="true"] span:nth-child(2) {
-      opacity: 0;
-    }
+    .menu-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
     .menu-toggle[aria-expanded="true"] span:nth-child(3) {
       transform: translateY(-7px) rotate(-45deg);
     }
 
-    /* Overlay */
     .sidebar-overlay {
       display: none;
       position: fixed;
@@ -186,10 +184,11 @@
       opacity: 1;
     }
 
-    /* ========== CONTENT ========== */
+    /* CONTENT */
     .content {
       flex: 1;
       padding: 36px 40px;
+      width: 100%;
       max-width: 1400px;
     }
     .top {
@@ -209,6 +208,8 @@
       margin-top: 4px;
       font-size: 0.975rem;
     }
+
+    /* BUTTONS */
     .btn {
       display: inline-flex;
       align-items: center;
@@ -304,6 +305,7 @@
       font-weight: 700;
       letter-spacing: -0.3px;
     }
+
     .tag {
       display: inline-flex;
       align-items: center;
@@ -314,10 +316,9 @@
       font-size: 0.8rem;
       font-weight: 600;
     }
-    .tag.blue {
-      background: #dbeafe;
-      color: #1d4ed8;
-    }
+    .tag.blue { background: #dbeafe; color: #1d4ed8; }
+    .tag.orange { background: var(--orange-bg); color: var(--orange-text); }
+    .tag.red { background: var(--red-bg); color: var(--red-text); }
 
     .properties {
       display: grid;
@@ -364,6 +365,7 @@
       color: var(--green);
     }
     .property-card .score.medium { color: var(--secondary); }
+    .property-card .score.low { color: var(--orange); }
     .property-card .status { margin-bottom: 20px; }
     .property-card .actions {
       display: flex;
@@ -371,6 +373,36 @@
       margin-top: auto;
     }
     .property-card .actions .btn { flex: 1; }
+
+    .empty-state,
+    .loading-state,
+    .error-state {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 48px 28px;
+      text-align: center;
+      grid-column: 1 / -1;
+      box-shadow: var(--shadow-sm);
+    }
+    .empty-state .empty-icon,
+    .error-state .error-icon {
+      font-size: 2.5rem;
+      margin-bottom: 14px;
+    }
+    .empty-state h3,
+    .error-state h3 {
+      font-size: 1.15rem;
+      margin-bottom: 8px;
+    }
+    .empty-state p,
+    .error-state p {
+      color: var(--gray);
+      max-width: 500px;
+      margin: 0 auto 22px;
+    }
+    .loading-state { color: var(--gray); }
+
     .property-card.new-project {
       border-style: dashed;
       border-color: #cbd5e1;
@@ -386,7 +418,7 @@
     .property-card.new-project .title { margin-bottom: 8px; }
     .property-card.new-project .meta { margin-bottom: 24px; }
 
-    /* ========== FOOTER ========== */
+    /* FOOTER */
     footer {
       background: var(--dark);
       color: var(--gray-light);
@@ -440,66 +472,52 @@
       font-size: 0.875rem;
     }
 
-    /* ========== RESPONSIVE ========== */
     @media (max-width: 1100px) {
       .stats { grid-template-columns: repeat(2, 1fr); }
       .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
     }
     @media (max-width: 900px) {
-      .mobile-header {
-        display: flex;
-      }
+      .mobile-header { display: flex; }
       .sidebar {
         position: fixed;
         left: 0;
         top: 0;
         height: 100%;
         transform: translateX(-100%);
-        box-shadow: 8px 0 30px rgba(0,0,0,0.15);
+        box-shadow: 8px 0 30px rgba(0, 0, 0, 0.15);
       }
-      .sidebar.open {
-        transform: translateX(0);
-      }
-      .content {
-        padding: 24px 20px;
-      }
-      .top h1 {
-        font-size: 1.5rem;
-      }
+      .sidebar.open { transform: translateX(0); }
+      .content { padding: 24px 20px; }
+      .top h1 { font-size: 1.5rem; }
     }
     @media (max-width: 600px) {
-      .stats {
-        grid-template-columns: 1fr 1fr;
-        gap: 12px;
-      }
+      .stats { grid-template-columns: 1fr 1fr; gap: 12px; }
       .stat-card { padding: 18px; }
       .stat-card .number { font-size: 1.8rem; }
       .properties { grid-template-columns: 1fr; }
-      .top {
-        flex-direction: column;
-        align-items: flex-start;
-      }
+      .top { flex-direction: column; align-items: flex-start; }
       .top .btn { width: 100%; }
       .footer-grid { grid-template-columns: 1fr; gap: 28px; }
+    }
+    @media (max-width: 400px) {
+      .stats { grid-template-columns: 1fr; }
+      .content { padding: 20px 14px; }
     }
   </style>
 </head>
 <body>
-  <!-- Mobile Header -->
   <div class="mobile-header">
     <a href="index.html" class="logo">IA<span>nnonce</span></a>
-    <button class="menu-toggle" id="menuToggle" aria-label="Ouvrir le menu" aria-expanded="false">
+    <button class="menu-toggle" id="menuToggle" aria-label="Ouvrir le menu" aria-expanded="false" type="button">
       <span></span>
       <span></span>
       <span></span>
     </button>
   </div>
 
-  <!-- Overlay -->
   <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
   <div class="app">
-    <!-- SIDEBAR -->
     <aside class="sidebar" id="sidebar">
       <a href="index.html" class="logo">IA<span>nnonce</span></a>
       <ul class="menu">
@@ -514,15 +532,14 @@
         <li><a href="#"><span class="icon">⚙️</span> Paramètres</a></li>
       </ul>
       <div class="sidebar-footer">
-        <div class="plan-badge">Plan Pro · 7 / 10 biens</div>
+        <div class="plan-badge" id="sidebar-plan">PRO · 0 / 10 biens</div>
       </div>
     </aside>
 
-    <!-- CONTENT -->
     <main class="content">
       <div class="top">
         <div>
-          <h1>Bonjour Gabriel 👋</h1>
+          <h1 id="welcome-title">Bonjour 👋</h1>
           <p>Votre IA marketing immobilier est prête.</p>
         </div>
         <a href="new-property.html" class="btn btn-primary">+ Nouveau bien</a>
@@ -531,74 +548,37 @@
       <div class="stats">
         <div class="stat-card">
           <div class="label">Biens créés</div>
-          <div class="number">12</div>
-          <div class="trend">+3 ce mois</div>
+          <div class="number" id="stat-properties">0</div>
+          <div class="trend" id="stat-properties-trend">Votre portefeuille</div>
         </div>
         <div class="stat-card">
           <div class="label">Vidéos générées</div>
-          <div class="number">48</div>
-          <div class="trend">+12 ce mois</div>
+          <div class="number" id="stat-videos">0</div>
+          <div class="trend">Depuis votre compte</div>
         </div>
         <div class="stat-card">
           <div class="label">Brochures PDF</div>
-          <div class="number">36</div>
-          <div class="trend">+8 ce mois</div>
+          <div class="number" id="stat-pdfs">0</div>
+          <div class="trend">Depuis votre compte</div>
         </div>
         <div class="stat-card">
           <div class="label">Score moyen IA</div>
-          <div class="number accent">91%</div>
-          <div class="trend">Excellent</div>
+          <div class="number accent" id="stat-score">—</div>
+          <div class="trend" id="stat-score-label">En attente d'analyse</div>
         </div>
       </div>
 
       <div class="section-header">
         <h2>Mes biens</h2>
-        <span class="tag">PRO : 7 / 10 biens utilisés</span>
+        <span class="tag" id="plan-usage">PRO : 0 / 10 biens utilisés</span>
       </div>
 
-      <div class="properties">
-        <div class="property-card">
-          <div class="title">🏡 Villa contemporaine</div>
-          <div class="meta">Sion • 6.5 pièces</div>
-          <div class="score-block">
-            <div class="score-label">Score marketing IA</div>
-            <div class="score">94%</div>
-          </div>
-          <div class="status">
-            <span class="tag">Marketing terminé</span>
-          </div>
-          <div class="actions">
-            <a href="resultat.html" class="btn btn-primary btn-sm">Voir dossier</a>
-            <a href="#" class="btn btn-secondary btn-sm">Modifier</a>
-          </div>
-        </div>
-
-        <div class="property-card">
-          <div class="title">🏢 Appartement</div>
-          <div class="meta">Vétroz • 4.5 pièces</div>
-          <div class="score-block">
-            <div class="score-label">Score marketing IA</div>
-            <div class="score medium">87%</div>
-          </div>
-          <div class="status">
-            <span class="tag blue">Prêt à publier</span>
-          </div>
-          <div class="actions">
-            <a href="resultat.html" class="btn btn-primary btn-sm">Voir dossier</a>
-            <a href="#" class="btn btn-secondary btn-sm">Modifier</a>
-          </div>
-        </div>
-
-        <div class="property-card new-project">
-          <div class="title">➕ Nouveau projet</div>
-          <div class="meta">Créez un nouveau marketing immobilier complet en quelques minutes.</div>
-          <a href="new-property.html" class="btn btn-primary">Créer un bien</a>
-        </div>
+      <div class="properties" id="properties-container">
+        <div class="loading-state">Chargement de vos biens...</div>
       </div>
     </main>
   </div>
 
-  <!-- FOOTER -->
   <footer>
     <div class="footer-inner">
       <div class="footer-grid">
@@ -632,13 +612,17 @@
         </div>
       </div>
       <div class="footer-bottom">
-        <span>© 2025 IAnnonce.ch. Tous droits réservés.</span>
+        <span>© 2026 IAnnonce.ch. Tous droits réservés.</span>
         <span>Swiss Administration & Accounting SARL, 1963 Vétroz</span>
       </div>
     </div>
   </footer>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase.js"></script>
+
   <script>
+    /* ========== MOBILE MENU ========== */
     const menuToggle = document.getElementById('menuToggle');
     const sidebar = document.getElementById('sidebar');
     const overlay = document.getElementById('sidebarOverlay');
@@ -647,36 +631,255 @@
       sidebar.classList.add('open');
       overlay.classList.add('visible');
       menuToggle.setAttribute('aria-expanded', 'true');
-      document.body.style.overflow = 'hidden';
+      menuToggle.setAttribute('aria-label', 'Fermer le menu');
+      document.body.classList.add('menu-open');
     }
     function closeSidebar() {
       sidebar.classList.remove('open');
       overlay.classList.remove('visible');
       menuToggle.setAttribute('aria-expanded', 'false');
-      document.body.style.overflow = '';
+      menuToggle.setAttribute('aria-label', 'Ouvrir le menu');
+      document.body.classList.remove('menu-open');
     }
 
-    menuToggle.addEventListener('click', () => {
-      if (sidebar.classList.contains('open')) {
-        closeSidebar();
-      } else {
-        openSidebar();
-      }
+    menuToggle.addEventListener('click', function () {
+      if (sidebar.classList.contains('open')) closeSidebar();
+      else openSidebar();
     });
     overlay.addEventListener('click', closeSidebar);
-
-    sidebar.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        if (window.innerWidth <= 900) {
-          closeSidebar();
-        }
+    sidebar.querySelectorAll('a').forEach(function (link) {
+      link.addEventListener('click', function () {
+        if (window.innerWidth <= 900) closeSidebar();
       });
     });
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape' && sidebar.classList.contains('open')) closeSidebar();
+    });
 
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && sidebar.classList.contains('open')) {
-        closeSidebar();
+    /* ========== DASHBOARD ========== */
+    async function loadDashboard() {
+      const propertiesContainer = document.getElementById('properties-container');
+      const statProperties = document.getElementById('stat-properties');
+      const statVideos = document.getElementById('stat-videos');
+      const statPdfs = document.getElementById('stat-pdfs');
+      const statScore = document.getElementById('stat-score');
+      const statScoreLabel = document.getElementById('stat-score-label');
+      const statPropertiesTrend = document.getElementById('stat-properties-trend');
+      const planUsage = document.getElementById('plan-usage');
+      const sidebarPlan = document.getElementById('sidebar-plan');
+
+      if (typeof supabase === 'undefined') {
+        showDashboardError('Supabase n’est pas chargé. Vérifiez js/supabase.js.');
+        return;
       }
+
+      try {
+        const { data: { user }, error: userError } = await supabase.auth.getUser();
+        if (userError) throw userError;
+        if (!user) {
+          window.location.href = 'login.html';
+          return;
+        }
+
+        const metadata = user.user_metadata || {};
+        const firstName =
+          metadata.first_name ||
+          metadata.firstname ||
+          metadata.name ||
+          (user.email ? user.email.split('@')[0] : null) ||
+          '';
+        document.getElementById('welcome-title').textContent =
+          firstName ? `Bonjour ${firstName} 👋` : 'Bonjour 👋';
+
+        const { data: properties, error: propertiesError } = await supabase
+          .from('properties')
+          .select('*')
+          .eq('user_id', user.id)
+          .order('created_at', { ascending: false });
+
+        if (propertiesError) throw propertiesError;
+
+        const items = properties || [];
+        const propertyCount = items.length;
+
+        statProperties.textContent = propertyCount;
+        statPropertiesTrend.textContent =
+          propertyCount === 0
+            ? 'Aucun bien créé'
+            : propertyCount === 1
+              ? '1 bien dans votre portefeuille'
+              : `${propertyCount} biens dans votre portefeuille`;
+
+        const PLAN_LIMIT = 10;
+        planUsage.textContent = `PRO : ${propertyCount} / ${PLAN_LIMIT} biens utilisés`;
+        sidebarPlan.textContent = `PRO · ${propertyCount} / ${PLAN_LIMIT} biens`;
+
+        let videoCount = 0;
+        items.forEach(function (property) {
+          const value = property.video_generated ?? property.video_count ?? property.has_video ?? false;
+          if (value === true || Number(value) > 0) videoCount++;
+        });
+        statVideos.textContent = videoCount;
+
+        let pdfCount = 0;
+        items.forEach(function (property) {
+          const value = property.pdf_generated ?? property.pdf_count ?? property.has_pdf ?? false;
+          if (value === true || Number(value) > 0) pdfCount++;
+        });
+        statPdfs.textContent = pdfCount;
+
+        const scores = [];
+        items.forEach(function (property) {
+          const possibleScore =
+            property.ai_score ?? property.score ?? property.marketing_score ?? property.ai_marketing_score;
+          const numericScore = Number(possibleScore);
+          if (Number.isFinite(numericScore) && numericScore >= 0 && numericScore <= 100) {
+            scores.push(numericScore);
+          }
+        });
+
+        if (scores.length > 0) {
+          const average = scores.reduce(function (sum, score) { return sum + score; }, 0) / scores.length;
+          const roundedAverage = Math.round(average);
+          statScore.textContent = `${roundedAverage}%`;
+          if (roundedAverage >= 90) statScoreLabel.textContent = 'Excellent';
+          else if (roundedAverage >= 80) statScoreLabel.textContent = 'Très bon';
+          else if (roundedAverage >= 70) statScoreLabel.textContent = 'Bon';
+          else statScoreLabel.textContent = 'À améliorer';
+        } else {
+          statScore.textContent = '—';
+          statScoreLabel.textContent = 'En attente d’analyse';
+        }
+
+        renderProperties(items, propertiesContainer);
+      } catch (error) {
+        console.error('Erreur Dashboard:', error);
+        showDashboardError('Impossible de récupérer vos données. Vérifiez votre connexion à Supabase.');
+      }
+    }
+
+    function renderProperties(properties, container) {
+      container.innerHTML = '';
+
+      if (!properties.length) {
+        const empty = document.createElement('div');
+        empty.className = 'empty-state';
+        empty.innerHTML = `
+          <div class="empty-icon">🏡</div>
+          <h3>Votre portefeuille est vide</h3>
+          <p>Créez votre premier bien et laissez IAnnonce générer votre dossier marketing immobilier complet.</p>
+          <a href="new-property.html" class="btn btn-primary">+ Créer mon premier bien</a>
+        `;
+        container.appendChild(empty);
+        addNewProjectCard(container);
+        return;
+      }
+
+      properties.forEach(function (property) {
+        const card = document.createElement('div');
+        card.className = 'property-card';
+
+        const title = getPropertyTitle(property);
+        const meta = getPropertyMeta(property);
+        const score = getPropertyScore(property);
+        const status = getPropertyStatus(property);
+        const propertyId = property.id || '';
+
+        card.innerHTML = `
+          <div class="title">${escapeHtml(title)}</div>
+          <div class="meta">${escapeHtml(meta)}</div>
+          <div class="score-block">
+            <div class="score-label">Score marketing IA</div>
+            <div class="score ${getScoreClass(score)}">${score !== null ? score + '%' : '—'}</div>
+          </div>
+          <div class="status">${status}</div>
+          <div class="actions">
+            <a href="result.html?id=${encodeURIComponent(propertyId)}" class="btn btn-primary btn-sm">Voir dossier</a>
+            <a href="new-property.html?id=${encodeURIComponent(propertyId)}" class="btn btn-secondary btn-sm">Modifier</a>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+
+      addNewProjectCard(container);
+    }
+
+    function addNewProjectCard(container) {
+      const card = document.createElement('div');
+      card.className = 'property-card new-project';
+      card.innerHTML = `
+        <div class="title">➕ Nouveau projet</div>
+        <div class="meta">Créez un nouveau marketing immobilier complet en quelques minutes.</div>
+        <a href="new-property.html" class="btn btn-primary">Créer un bien</a>
+      `;
+      container.appendChild(card);
+    }
+
+    function getPropertyTitle(property) {
+      return property.title || property.name || property.property_title || 'Bien immobilier';
+    }
+
+    function getPropertyMeta(property) {
+      const city = property.city || property.location || property.locality || 'Localisation non renseignée';
+      const rooms = property.rooms || property.room_count || property.pieces || '';
+      if (rooms) return `${city} • ${rooms} pièces`;
+      return city;
+    }
+
+    function getPropertyScore(property) {
+      const possibleScore =
+        property.ai_score ?? property.score ?? property.marketing_score ?? property.ai_marketing_score;
+      const numericScore = Number(possibleScore);
+      if (Number.isFinite(numericScore) && numericScore >= 0 && numericScore <= 100) {
+        return Math.round(numericScore);
+      }
+      return null;
+    }
+
+    function getScoreClass(score) {
+      if (score === null) return '';
+      if (score >= 90) return '';
+      if (score >= 80) return 'medium';
+      return 'low';
+    }
+
+    function getPropertyStatus(property) {
+      const status = String(property.status || property.marketing_status || '').toLowerCase();
+      if (status.includes('complete') || status.includes('termin')) {
+        return '<span class="tag">Marketing terminé</span>';
+      }
+      if (status.includes('publish') || status.includes('ready') || status.includes('pret')) {
+        return '<span class="tag blue">Prêt à publier</span>';
+      }
+      if (status.includes('draft') || status.includes('brouillon')) {
+        return '<span class="tag orange">Brouillon</span>';
+      }
+      return '<span class="tag blue">Projet créé</span>';
+    }
+
+    function showDashboardError(message) {
+      const container = document.getElementById('properties-container');
+      container.innerHTML = `
+        <div class="error-state">
+          <div class="error-icon">⚠️</div>
+          <h3>Une erreur est survenue</h3>
+          <p>${escapeHtml(message)}</p>
+          <button type="button" class="btn btn-primary" onclick="window.location.reload()">Réessayer</button>
+        </div>
+      `;
+    }
+
+    function escapeHtml(value) {
+      return String(value ?? '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      loadDashboard();
     });
   </script>
 </body>
