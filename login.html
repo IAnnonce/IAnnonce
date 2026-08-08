@@ -76,9 +76,6 @@
       gap: 2px;
     }
     .logo span { color: var(--dark); }
-    footer .logo { color: #ffffff; }
-    footer .logo span { color: #ffffff; }
-
     .nav-links {
       display: flex;
       align-items: center;
@@ -91,7 +88,6 @@
       transition: color var(--transition);
     }
     .nav-links a:not(.btn):hover { color: var(--dark); }
-
     .menu-toggle {
       display: none;
       background: none;
@@ -268,11 +264,16 @@
       text-decoration: underline;
     }
 
-    /* FOOTER */
+    /* FOOTER (identique index / new-property) */
     footer {
       background: var(--dark);
       color: var(--gray-light);
       padding: 64px 0 36px;
+    }
+    .footer-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px;
     }
     .footer-grid {
       display: grid;
@@ -283,6 +284,14 @@
     .footer-brand .logo {
       margin-bottom: 16px;
       display: inline-flex;
+      padding: 0;
+      font-size: 1.5rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: var(--primary);
+    }
+    .footer-brand .logo span {
+      color: #ffffff;
     }
     .footer-brand p {
       max-width: 280px;
@@ -300,6 +309,8 @@
     footer a {
       font-size: 0.925rem;
       transition: color var(--transition);
+      text-decoration: none;
+      color: inherit;
     }
     footer a:hover { color: white; }
     .footer-bottom {
@@ -387,7 +398,6 @@
       </div>
       <h1>Bon retour 👋</h1>
       <p class="subtitle">Connectez-vous pour accéder à votre espace</p>
-
       <form id="login-form">
         <div class="form-group">
           <label for="email">Adresse e-mail</label>
@@ -404,17 +414,16 @@
           Se connecter
         </button>
       </form>
-
       <div class="divider">ou</div>
-
       <p class="signup-link">
-        Pas encore de compte ? <a href="new-property.html">Créer mon annonce</a>
+        Pas encore de compte ? <a href="register.html">Créer un compte</a>
       </p>
     </div>
   </main>
 
+  <!-- FOOTER identique index / new-property -->
   <footer>
-    <div class="container">
+    <div class="footer-inner">
       <div class="footer-grid">
         <div class="footer-brand">
           <a href="index.html" class="logo">IA<span>nnonce</span></a>
@@ -446,65 +455,56 @@
         </div>
       </div>
       <div class="footer-bottom">
-        <span>© 2025 IAnnonce.ch. Tous droits réservés.</span>
+        <span>© 2026 IAnnonce.ch. Tous droits réservés.</span>
         <span>Swiss Administration & Accounting SARL, 1963 Vétroz</span>
       </div>
     </div>
   </footer>
 
- <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="js/supabase.js"></script>
-
-<script>
-  const toggle = document.querySelector('.menu-toggle');
-  const navLinks = document.querySelector('.nav-links');
-  toggle.addEventListener('click', () => {
-    const isOpen = navLinks.classList.toggle('open');
-    toggle.setAttribute('aria-expanded', isOpen);
-  });
-  navLinks.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => {
-      navLinks.classList.remove('open');
-      toggle.setAttribute('aria-expanded', 'false');
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase.js"></script>
+  <script>
+    const toggle = document.querySelector('.menu-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    toggle.addEventListener('click', () => {
+      const isOpen = navLinks.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', isOpen);
     });
-  });
-  // ==============================
-  // CONNEXION SUPABASE
-  // ==============================
-  const loginForm = document.getElementById('login-form');
-  loginForm.addEventListener('submit', async function(e) {
-    e.preventDefault();
-    const email = document.getElementById('email').value.trim();
-    const password = document.getElementById('password').value;
-    if (!email || !password) {
-      alert('Veuillez remplir votre e-mail et votre mot de passe.');
-      return;
-    }
-    const button = loginForm.querySelector('button[type="submit"]');
-    button.disabled = true;
-    button.textContent = 'Connexion…';
-    try {
-  const { data, error } = await supabase.auth.signInWithPassword({
-        email: email,
-        password: password
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
       });
-      if (error) {
-        throw error;
+    });
+
+    // CONNEXION SUPABASE
+    const loginForm = document.getElementById('login-form');
+    loginForm.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      if (!email || !password) {
+        alert('Veuillez remplir votre e-mail et votre mot de passe.');
+        return;
       }
-      console.log('Utilisateur connecté :', data.user);
-      window.location.href = 'dashboard.html';
-    } catch (error) {
-      console.error(error);
-      alert(
-        error.message ||
-        'Impossible de se connecter. Vérifiez vos identifiants.'
-      );
-      button.disabled = false;
-      button.textContent = 'Se connecter';
-    }
-  });
-</script>
-
-
+      const button = loginForm.querySelector('button[type="submit"]');
+      button.disabled = true;
+      button.textContent = 'Connexion…';
+      try {
+        const { data, error } = await supabase.auth.signInWithPassword({
+          email: email,
+          password: password
+        });
+        if (error) throw error;
+        console.log('Utilisateur connecté :', data.user);
+        window.location.href = 'dashboard.html';
+      } catch (error) {
+        console.error(error);
+        alert(error.message || 'Impossible de se connecter. Vérifiez vos identifiants.');
+        button.disabled = false;
+        button.textContent = 'Se connecter';
+      }
+    });
+  </script>
 </body>
 </html>
