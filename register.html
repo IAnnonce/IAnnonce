@@ -346,6 +346,14 @@
     </div>
   </main>
 
+
+    <!-- 1. Librairie Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <!-- 2. Config (crée la variable supabase) -->
+  <script src="js/supabase.js"></script>
+
+  <!-- 3. Code de la page -->
   <script>
     function togglePassword(id) {
       const input = document.getElementById(id);
@@ -364,50 +372,79 @@
       }
     }
 
-async function handleRegister(e) {
-  e.preventDefault();
+    async function handleRegister(e) {
+      e.preventDefault();
 
-  const name = document.getElementById('name').value.trim();
-  const email = document.getElementById('email').value.trim();
-  const password = document.getElementById('password').value;
-  const passwordConfirm = document.getElementById('passwordConfirm').value;
-  const terms = document.getElementById('terms').checked;
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      const passwordConfirm = document.getElementById('passwordConfirm').value;
+      const terms = document.getElementById('terms').checked;
 
-  if (!name || !email || password.length < 8 || password !== passwordConfirm || !terms) {
-    alert("Veuillez vérifier vos informations.");
-    return;
-  }
+      // Reset erreurs
+      ['name', 'email', 'password', 'passwordConfirm', 'terms'].forEach(id => {
+        const err = document.getElementById('error-' + id);
+        if (err) err.classList.remove('visible');
+        const input = document.getElementById(id);
+        if (input) input.classList.remove('error');
+      });
 
-  const { data, error } = await supabase.auth.signUp({
-    email: email,
-    password: password,
-    options: {
-      data: {
-        full_name: name
+      let valid = true;
+
+      if (!name) {
+        showError('name', true);
+        valid = false;
+      }
+      if (!email || !email.includes('@')) {
+        showError('email', true);
+        valid = false;
+      }
+      if (password.length < 8) {
+        showError('password', true);
+        valid = false;
+      }
+      if (password !== passwordConfirm) {
+        showError('passwordConfirm', true);
+        valid = false;
+      }
+      if (!terms) {
+        document.getElementById('error-terms').classList.add('visible');
+        valid = false;
+      }
+
+      if (!valid) return;
+
+      const btn = document.getElementById('submitBtn');
+      btn.disabled = true;
+      btn.textContent = 'Création…';
+
+      try {
+        const { data, error } = await supabase.auth.signUp({
+          email: email,
+          password: password,
+          options: {
+            data: {
+              full_name: name
+            }
+          }
+        });
+
+        if (error) throw error;
+
+        alert('Compte créé avec succès !');
+        window.location.href = 'dashboard.html';
+      } catch (error) {
+        console.error(error);
+        alert(error.message || 'Erreur lors de la création du compte');
+        btn.disabled = false;
+        btn.textContent = 'Créer mon compte';
       }
     }
-  });
-
-  if (error) {
-    alert(error.message);
-    return;
-  }
-
-  alert("Compte créé avec succès !");
-
-  window.location.href = "dashboard.html";
-}
 
     // Enlever les erreurs en temps réel
     ['name', 'email', 'password', 'passwordConfirm'].forEach(id => {
       document.getElementById(id).addEventListener('input', () => showError(id, false));
     });
   </script>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="js/supabase.js"></script>
-<script src="js/app.js"></script>
-
-  
 </body>
 </html>
