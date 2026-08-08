@@ -13,6 +13,7 @@
       --secondary: #06b6d4;
       --dark: #0f172a;
       --gray: #64748b;
+      --gray-light: #94a3b8;
       --border: #e2e8f0;
       --bg: #f8fafc;
       --green: #10b981;
@@ -41,7 +42,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 40px;
+      margin-bottom: 36px;
     }
     .logo {
       font-size: 1.5rem;
@@ -58,25 +59,25 @@
     }
     .back-link:hover { color: var(--primary); }
 
-    .page-title { margin-bottom: 32px; }
+    .page-title { margin-bottom: 28px; }
     .page-title h1 {
-      font-size: 1.9rem;
+      font-size: clamp(1.7rem, 4vw, 2rem);
       font-weight: 800;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
     .page-title p { color: var(--gray); }
 
     .steps {
       display: flex;
       gap: 8px;
-      margin-bottom: 32px;
+      margin-bottom: 28px;
       overflow-x: auto;
     }
     .step {
       display: flex;
       align-items: center;
       gap: 8px;
-      padding: 10px 16px;
+      padding: 9px 15px;
       border-radius: 100px;
       background: white;
       border: 1.5px solid var(--border);
@@ -118,20 +119,20 @@
     .box {
       background: white;
       border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 32px;
-      margin-bottom: 24px;
+      border-radius: 18px;
+      padding: 28px;
+      margin-bottom: 20px;
     }
     .box h2 {
-      font-size: 1.25rem;
+      font-size: 1.2rem;
       font-weight: 700;
-      margin-bottom: 24px;
+      margin-bottom: 22px;
     }
 
     .grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 18px;
+      gap: 16px;
     }
     .full { grid-column: 1 / -1; }
     label {
@@ -153,21 +154,19 @@
       outline: none;
       border-color: var(--primary);
     }
-    .error {
-      border-color: var(--red) !important;
-    }
+    .error { border-color: var(--red) !important; }
     .error-msg {
       display: none;
       color: var(--red);
       font-size: 0.8rem;
-      margin-top: 5px;
+      margin-top: 4px;
     }
     .error-msg.show { display: block; }
 
     .upload-zone {
       border: 2px dashed #cbd5e1;
-      border-radius: 16px;
-      padding: 48px 20px;
+      border-radius: 14px;
+      padding: 42px 20px;
       text-align: center;
       cursor: pointer;
       background: #fafbfc;
@@ -180,19 +179,19 @@
       border-color: var(--green);
       background: var(--green-bg);
     }
-    .upload-zone .icon { font-size: 2.5rem; margin-bottom: 10px; }
-    .upload-zone h3 { font-size: 1.1rem; margin-bottom: 6px; }
+    .upload-zone .icon { font-size: 2.4rem; margin-bottom: 10px; }
+    .upload-zone h3 { font-size: 1.1rem; margin-bottom: 4px; }
     .upload-zone p { color: var(--gray); font-size: 0.9rem; }
 
     .actions {
       display: flex;
       justify-content: flex-end;
-      gap: 12px;
-      margin-top: 28px;
+      gap: 10px;
+      margin-top: 24px;
     }
     .btn {
-      padding: 13px 24px;
-      border-radius: 12px;
+      padding: 12px 22px;
+      border-radius: 10px;
       border: none;
       font-weight: 600;
       font-size: 0.95rem;
@@ -218,17 +217,17 @@
     #step-2, #analyse, #result { display: none; }
 
     .progress-bar {
-      height: 10px;
+      height: 9px;
       background: #e2e8f0;
       border-radius: 20px;
       overflow: hidden;
-      margin: 24px 0;
+      margin: 22px 0;
     }
     .progress-fill {
       height: 100%;
       width: 0%;
       background: linear-gradient(90deg, var(--secondary), #22d3ee);
-      transition: width 0.5s ease;
+      transition: width 0.45s ease;
     }
     #messages p {
       color: var(--gray);
@@ -240,19 +239,19 @@
       background: var(--green-bg);
       border: 1.5px solid var(--green-border);
       border-radius: 16px;
-      padding: 32px;
+      padding: 28px;
       text-align: center;
     }
-    .result-card .emoji { font-size: 2.8rem; margin-bottom: 12px; }
-    .result-card h2 { font-size: 1.4rem; margin-bottom: 20px; }
+    .result-card .emoji { font-size: 2.6rem; margin-bottom: 10px; }
+    .result-card h2 { font-size: 1.35rem; margin-bottom: 18px; }
     .result-list {
       list-style: none;
       text-align: left;
       max-width: 300px;
-      margin: 0 auto 24px;
+      margin: 0 auto 20px;
     }
     .result-list li {
-      padding: 8px 0;
+      padding: 7px 0;
       display: flex;
       gap: 10px;
     }
@@ -265,17 +264,17 @@
       display: inline-block;
       background: white;
       border: 1px solid var(--green-border);
-      padding: 10px 18px;
+      padding: 9px 16px;
       border-radius: 50px;
       font-weight: 700;
-      margin-bottom: 24px;
+      margin-bottom: 20px;
     }
     .score span { color: var(--green); }
 
     footer {
       background: var(--dark);
-      color: #94a3b8;
-      padding: 50px 0 30px;
+      color: var(--gray-light);
+      padding: 50px 0 28px;
       margin-top: auto;
     }
     .footer-inner {
@@ -287,7 +286,7 @@
       display: grid;
       grid-template-columns: 1.5fr 1fr 1fr 1fr;
       gap: 30px;
-      margin-bottom: 40px;
+      margin-bottom: 36px;
     }
     .footer-brand .logo {
       color: var(--primary);
@@ -295,6 +294,7 @@
       display: inline-block;
     }
     .footer-brand .logo span { color: white; }
+    .footer-brand p { font-size: 0.95rem; max-width: 260px; }
     footer h4 { color: white; margin-bottom: 14px; font-size: 0.9rem; }
     footer ul { list-style: none; }
     footer li { margin-bottom: 8px; }
@@ -323,7 +323,7 @@
   <div class="container">
     <div class="header">
       <a href="index.html" class="logo">IA<span>nnonce</span></a>
-      <a href="dashboard.html" class="back-link">← Retour au Dashboard</a>
+      <a href="index.html" class="back-link" id="backLink">← Retour à l’accueil</a>
     </div>
 
     <div class="page-title">
@@ -331,7 +331,7 @@
       <p>Laissez l’intelligence artificielle orchestrer votre marketing immobilier.</p>
     </div>
 
-    <div class="steps">
+    <div class="steps" id="stepper">
       <div class="step active" data-step="1"><span class="num">1</span> Informations</div>
       <div class="step" data-step="2"><span class="num">2</span> Photos</div>
       <div class="step" data-step="3"><span class="num">3</span> Analyse IA</div>
@@ -469,70 +469,48 @@
     </div>
   </footer>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
-    // ====================== VARIABLES ======================
+    // ========== VARIABLES ==========
     let selectedFiles = [];
 
-    // ====================== FONCTIONS ======================
+    // ========== NAVIGATION ==========
     function goToStep(step) {
-      // Cacher toutes les étapes
-      document.getElementById('step-1').style.display = 'none';
-      document.getElementById('step-2').style.display = 'none';
-      document.getElementById('analyse').style.display = 'none';
-      document.getElementById('result').style.display = 'none';
+      document.getElementById('step-1').style.display = step === 1 ? 'block' : 'none';
+      document.getElementById('step-2').style.display = step === 2 ? 'block' : 'none';
+      document.getElementById('analyse').style.display = step === 3 ? 'block' : 'none';
+      document.getElementById('result').style.display = step === 4 ? 'block' : 'none';
 
-      // Afficher la bonne
-      if (step === 1) document.getElementById('step-1').style.display = 'block';
-      if (step === 2) document.getElementById('step-2').style.display = 'block';
-      if (step === 3) document.getElementById('analyse').style.display = 'block';
-      if (step === 4) document.getElementById('result').style.display = 'block';
-
-      // Mettre à jour le stepper
-      document.querySelectorAll('.step').forEach(function(el) {
-        const s = parseInt(el.getAttribute('data-step'));
+      document.querySelectorAll('.step').forEach(el => {
+        const s = parseInt(el.dataset.step);
         el.classList.remove('active', 'done');
         if (s < step) el.classList.add('done');
         if (s === step) el.classList.add('active');
       });
-
       window.scrollTo(0, 0);
     }
 
+    // ========== VALIDATION ==========
     function validateStep1() {
-      let ok = true;
+      let valid = true;
+      const fields = ['type', 'transaction', 'location', 'price'];
 
-      // Reset erreurs
-      ['type', 'transaction', 'location', 'price'].forEach(function(id) {
-        document.getElementById(id).classList.remove('error');
-        document.getElementById('error-' + id).classList.remove('show');
+      fields.forEach(id => {
+        const el = document.getElementById(id);
+        const err = document.getElementById('error-' + id);
+        el.classList.remove('error');
+        err.classList.remove('show');
+        if (!el.value.trim()) {
+          el.classList.add('error');
+          err.classList.add('show');
+          valid = false;
+        }
       });
 
-      if (!document.getElementById('type').value) {
-        document.getElementById('type').classList.add('error');
-        document.getElementById('error-type').classList.add('show');
-        ok = false;
-      }
-      if (!document.getElementById('transaction').value) {
-        document.getElementById('transaction').classList.add('error');
-        document.getElementById('error-transaction').classList.add('show');
-        ok = false;
-      }
-      if (!document.getElementById('location').value.trim()) {
-        document.getElementById('location').classList.add('error');
-        document.getElementById('error-location').classList.add('show');
-        ok = false;
-      }
-      if (!document.getElementById('price').value.trim()) {
-        document.getElementById('price').classList.add('error');
-        document.getElementById('error-price').classList.add('show');
-        ok = false;
-      }
-
-      if (ok) {
-        goToStep(2);
-      }
+      if (valid) goToStep(2);
     }
 
+    // ========== UPLOAD ==========
     function handleFiles(files) {
       selectedFiles = Array.from(files).filter(f => f.type.startsWith('image/'));
       const zone = document.getElementById('uploadZone');
@@ -557,12 +535,12 @@
       }
     }
 
-    function startAnalysis() {
+    // ========== ANALYSE ==========
+    function startAI() {
       if (selectedFiles.length === 0) {
         alert('Ajoutez au moins une photo');
         return;
       }
-
       goToStep(3);
 
       const progress = document.getElementById('progress');
@@ -580,7 +558,7 @@
       ];
 
       let i = 0;
-      const timer = setInterval(function() {
+      const timer = setInterval(() => {
         i++;
         progress.style.width = (i * 16.7) + '%';
         const p = document.createElement('p');
@@ -589,55 +567,63 @@
 
         if (i >= texts.length) {
           clearInterval(timer);
-          setTimeout(function() {
-            goToStep(4);
-          }, 700);
+          setTimeout(() => goToStep(4), 700);
         }
       }, 750);
     }
 
-    // ====================== DÉMARRAGE ======================
-    document.addEventListener('DOMContentLoaded', function() {
+    // ========== SUPABASE (non-bloquant) ==========
+    async function setupBackLink() {
+      const backLink = document.getElementById('backLink');
+      if (!backLink) return;
 
-      // Bouton Continuer → Photos
+      try {
+        const SUPABASE_URL = "https://udubddnueiupdjewkzyp.supabase.co";
+        const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVkdWJkZG51ZWl1cGRqZXdrenlwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODU5MDk4NjYsImV4cCI6MjEwMTQ4NTg2Nn0.zHQM_cP5Ts7-6N2N2XbhSfghMGkZGvpTK2hHfGV5P3U"; // ← remplace par ta vraie clé
+
+        if (!window.supabase) return;
+
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+        const { data: { session } } = await supabase.auth.getSession();
+
+        if (session) {
+          backLink.href = 'dashboard.html';
+          backLink.textContent = '← Retour au Dashboard';
+        }
+      } catch (e) {
+        console.warn('Supabase non disponible');
+      }
+    }
+
+    // ========== INIT ==========
+    document.addEventListener('DOMContentLoaded', () => {
+      // Boutons
       document.getElementById('btnNext1').addEventListener('click', validateStep1);
-
-      // Bouton Retour
-      document.getElementById('btnBack').addEventListener('click', function() {
-        goToStep(1);
-      });
-
-      // Bouton Lancer analyse
-      document.getElementById('btnNext2').addEventListener('click', startAnalysis);
+      document.getElementById('btnBack').addEventListener('click', () => goToStep(1));
+      document.getElementById('btnNext2').addEventListener('click', startAI);
 
       // Upload
       const zone = document.getElementById('uploadZone');
       const input = document.getElementById('fileInput');
 
-      zone.addEventListener('click', function() {
-        input.click();
-      });
+      zone.addEventListener('click', () => input.click());
+      input.addEventListener('change', () => handleFiles(input.files));
 
-      input.addEventListener('change', function() {
-        handleFiles(this.files);
-      });
-
-      // Drag & drop
-      zone.addEventListener('dragover', function(e) {
+      zone.addEventListener('dragover', e => {
         e.preventDefault();
-        this.style.borderColor = '#2563eb';
+        zone.style.borderColor = '#2563eb';
       });
-      zone.addEventListener('dragleave', function() {
-        this.style.borderColor = '#cbd5e1';
+      zone.addEventListener('dragleave', () => {
+        zone.style.borderColor = '#cbd5e1';
       });
-      zone.addEventListener('drop', function(e) {
+      zone.addEventListener('drop', e => {
         e.preventDefault();
-        this.style.borderColor = '#cbd5e1';
+        zone.style.borderColor = '#cbd5e1';
         handleFiles(e.dataTransfer.files);
       });
 
-      // Démarrer à l'étape 1
       goToStep(1);
+      setupBackLink();
     });
   </script>
 </body>
