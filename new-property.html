@@ -153,7 +153,9 @@
       outline: none;
       border-color: var(--primary);
     }
-    .error { border-color: var(--red) !important; }
+    .error {
+      border-color: var(--red) !important;
+    }
     .error-msg {
       display: none;
       color: var(--red);
@@ -321,7 +323,7 @@
   <div class="container">
     <div class="header">
       <a href="index.html" class="logo">IA<span>nnonce</span></a>
-      <a href="index.html" class="back-link" id="backLink">← Retour à l’accueil</a>
+      <a href="dashboard.html" class="back-link">← Retour au Dashboard</a>
     </div>
 
     <div class="page-title">
@@ -467,36 +469,25 @@
     </div>
   </footer>
 
-  <!-- Supabase -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
   <script>
-    // ====================== SUPABASE ======================
-    const SUPABASE_URL = "https://udubddnueiupdjewkzyp.supabase.co";
-    const SUPABASE_KEY = "sb_publishable_rnvBmTb9am3nY92vmpBeRA_AnpHkfL-"; // ← Mets ta vraie clé ici
-
-    let supabase = null;
-    try {
-      supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-    } catch (e) {
-      console.warn("Supabase non chargé");
-    }
-
     // ====================== VARIABLES ======================
     let selectedFiles = [];
 
     // ====================== FONCTIONS ======================
     function goToStep(step) {
+      // Cacher toutes les étapes
       document.getElementById('step-1').style.display = 'none';
       document.getElementById('step-2').style.display = 'none';
       document.getElementById('analyse').style.display = 'none';
       document.getElementById('result').style.display = 'none';
 
+      // Afficher la bonne
       if (step === 1) document.getElementById('step-1').style.display = 'block';
       if (step === 2) document.getElementById('step-2').style.display = 'block';
       if (step === 3) document.getElementById('analyse').style.display = 'block';
       if (step === 4) document.getElementById('result').style.display = 'block';
 
+      // Mettre à jour le stepper
       document.querySelectorAll('.step').forEach(function(el) {
         const s = parseInt(el.getAttribute('data-step'));
         el.classList.remove('active', 'done');
@@ -510,6 +501,7 @@
     function validateStep1() {
       let ok = true;
 
+      // Reset erreurs
       ['type', 'transaction', 'location', 'price'].forEach(function(id) {
         document.getElementById(id).classList.remove('error');
         document.getElementById('error-' + id).classList.remove('show');
@@ -604,49 +596,33 @@
       }, 750);
     }
 
-    // ====================== LIEN RETOUR SUPABASE ======================
-    async function setupBackLink() {
-      const backLink = document.getElementById('backLink');
-      if (!backLink) return;
-
-      // Par défaut
-      backLink.href = 'index.html';
-      backLink.textContent = '← Retour à l’accueil';
-
-      if (!supabase) return;
-
-      try {
-        const { data: { session } } = await supabase.auth.getSession();
-        if (session) {
-          backLink.href = 'dashboard.html';
-          backLink.textContent = '← Retour au Dashboard';
-        }
-      } catch (err) {
-        console.warn('Session Supabase non disponible');
-      }
-    }
-
     // ====================== DÉMARRAGE ======================
     document.addEventListener('DOMContentLoaded', function() {
 
-      // 1. Boutons (priorité absolue)
+      // Bouton Continuer → Photos
       document.getElementById('btnNext1').addEventListener('click', validateStep1);
+
+      // Bouton Retour
       document.getElementById('btnBack').addEventListener('click', function() {
         goToStep(1);
       });
+
+      // Bouton Lancer analyse
       document.getElementById('btnNext2').addEventListener('click', startAnalysis);
 
-      // 2. Upload
+      // Upload
       const zone = document.getElementById('uploadZone');
       const input = document.getElementById('fileInput');
 
       zone.addEventListener('click', function() {
         input.click();
       });
+
       input.addEventListener('change', function() {
         handleFiles(this.files);
       });
 
+      // Drag & drop
       zone.addEventListener('dragover', function(e) {
         e.preventDefault();
         this.style.borderColor = '#2563eb';
@@ -660,11 +636,8 @@
         handleFiles(e.dataTransfer.files);
       });
 
-      // 3. Démarrer à l'étape 1
+      // Démarrer à l'étape 1
       goToStep(1);
-
-      // 4. Supabase (non bloquant)
-      setupBackLink();
     });
   </script>
 </body>
