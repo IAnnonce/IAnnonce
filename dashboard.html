@@ -107,6 +107,14 @@
       text-align: center;
       flex-shrink: 0;
     }
+    .menu li a#logoutBtn {
+      color: #fca5a5;
+      margin-top: 8px;
+    }
+    .menu li a#logoutBtn:hover {
+      background: rgba(239, 68, 68, 0.15);
+      color: #fecaca;
+    }
     .sidebar-footer {
       padding: 16px 12px 8px;
       border-top: 1px solid #1e293b;
@@ -441,6 +449,7 @@
       display: inline-flex;
       padding: 0;
       font-size: 1.5rem;
+      color: var(--primary);
     }
     .footer-brand .logo span { color: white; }
     .footer-brand p {
@@ -530,6 +539,11 @@
         <li><a href="#"><span class="icon">📊</span> Analytics</a></li>
         <li><a href="#"><span class="icon">💳</span> Abonnement</a></li>
         <li><a href="#"><span class="icon">⚙️</span> Paramètres</a></li>
+        <li>
+          <a href="#" id="logoutBtn">
+            <span class="icon">🚪</span> Déconnexion
+          </a>
+        </li>
       </ul>
       <div class="sidebar-footer">
         <div class="plan-badge" id="sidebar-plan">PRO · 0 / 10 biens</div>
@@ -656,6 +670,19 @@
       if (event.key === 'Escape' && sidebar.classList.contains('open')) closeSidebar();
     });
 
+    /* ========== DÉCONNEXION ========== */
+    document.getElementById('logoutBtn').addEventListener('click', async function (e) {
+      e.preventDefault();
+      try {
+        const { error } = await supabase.auth.signOut();
+        if (error) throw error;
+        window.location.href = 'login.html';
+      } catch (error) {
+        console.error('Erreur déconnexion:', error);
+        alert('Impossible de se déconnecter. Réessayez.');
+      }
+    });
+
     /* ========== DASHBOARD ========== */
     async function loadDashboard() {
       const propertiesContainer = document.getElementById('properties-container');
@@ -685,6 +712,7 @@
         const firstName =
           metadata.first_name ||
           metadata.firstname ||
+          metadata.full_name ||
           metadata.name ||
           (user.email ? user.email.split('@')[0] : null) ||
           '';
