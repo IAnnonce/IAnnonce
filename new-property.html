@@ -42,11 +42,15 @@
       color: var(--dark);
       line-height: 1.5;
       -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
     .container {
       max-width: 860px;
       margin: 0 auto;
       padding: 32px 24px 80px;
+      width: 100%;
     }
     .header {
       display: flex;
@@ -385,6 +389,69 @@
       color: var(--green);
       font-size: 1.25rem;
     }
+
+    /* FOOTER (identique dashboard) */
+    footer {
+      background: var(--dark);
+      color: var(--gray-light);
+      padding: 64px 0 36px;
+      margin-top: auto;
+    }
+    .footer-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.6fr 1fr 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 48px;
+    }
+    .footer-brand .logo {
+      margin-bottom: 16px;
+      display: inline-flex;
+      padding: 0;
+      font-size: 1.5rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: var(--primary);
+    }
+    .footer-brand .logo span { color: white; }
+    .footer-brand p {
+      max-width: 280px;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+    footer h4 {
+      color: white;
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 18px;
+    }
+    footer ul { list-style: none; }
+    footer li { margin-bottom: 10px; }
+    footer a {
+      font-size: 0.925rem;
+      transition: color var(--transition);
+      text-decoration: none;
+      color: inherit;
+    }
+    footer a:hover { color: white; }
+    .footer-bottom {
+      border-top: 1px solid #1e293b;
+      padding-top: 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 0.875rem;
+    }
+
+    @media (max-width: 1100px) {
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+    }
     @media (max-width: 700px) {
       .container { padding: 24px 16px 60px; }
       .grid { grid-template-columns: 1fr; }
@@ -398,6 +465,7 @@
         flex-direction: column-reverse;
       }
       .actions .btn { width: 100%; }
+      .footer-grid { grid-template-columns: 1fr; gap: 28px; }
     }
   </style>
 </head>
@@ -536,6 +604,46 @@
     </div>
   </div>
 
+  <!-- FOOTER (identique dashboard) -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="logo">IA<span>nnonce</span></a>
+          <p>Le copilote marketing immobilier propulsé par l’intelligence artificielle. Créez des annonces qui vendent vraiment.</p>
+        </div>
+        <div>
+          <h4>Produit</h4>
+          <ul>
+            <li><a href="index.html#fonctionnalites">Fonctionnalités</a></li>
+            <li><a href="index.html#demo">Démonstration</a></li>
+            <li><a href="index.html#tarifs">Tarifs</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Entreprise</h4>
+          <ul>
+            <li><a href="#">À propos</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Légal</h4>
+          <ul>
+            <li><a href="#">Confidentialité</a></li>
+            <li><a href="#">Conditions</a></li>
+            <li><a href="#">Mentions légales</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 IAnnonce.ch. Tous droits réservés.</span>
+        <span>Swiss Administration & Accounting SARL, 1963 Vétroz</span>
+      </div>
+    </div>
+  </footer>
+
   <script>
     // ========== Compteur de caractères ==========
     const highlights = document.getElementById('highlights');
@@ -564,7 +672,6 @@
           isValid = false;
         }
       });
-      // Validation basique du prix
       const price = document.getElementById('price');
       if (price.value.trim() && !/[\d]/.test(price.value)) {
         price.classList.add('error');
@@ -579,14 +686,13 @@
       }
     }
 
-    // Enlever l'erreur quand l'utilisateur corrige
     ['type', 'transaction', 'location', 'price'].forEach(id => {
-      document.getElementById(id).addEventListener('input', function() {
+      document.getElementById(id).addEventListener('input', function () {
         this.classList.remove('error');
         const error = document.getElementById('error-' + id);
         if (error) error.classList.remove('visible');
       });
-      document.getElementById(id).addEventListener('change', function() {
+      document.getElementById(id).addEventListener('change', function () {
         this.classList.remove('error');
         const error = document.getElementById('error-' + id);
         if (error) error.classList.remove('visible');
@@ -603,7 +709,6 @@
     uploadZone.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') fileInput.click();
     });
-
     uploadZone.addEventListener('dragover', (e) => {
       e.preventDefault();
       uploadZone.classList.add('dragover');
@@ -616,14 +721,12 @@
       uploadZone.classList.remove('dragover');
       handleFiles(e.dataTransfer.files);
     });
-
     fileInput.addEventListener('change', () => {
       handleFiles(fileInput.files);
     });
 
     function handleFiles(files) {
       selectedFiles = Array.from(files).filter(f => f.type.startsWith('image/'));
-     
       if (selectedFiles.length > 0) {
         uploadZone.classList.add('has-files');
         uploadZone.innerHTML = `
