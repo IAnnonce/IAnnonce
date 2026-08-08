@@ -3,9 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Créer un bien – IAnnonce</title>
+  <title>Créer un bien – IAannonce</title>
   <meta name="theme-color" content="#2563eb">
-  <meta name="description" content="Créez votre annonce immobilière professionnelle, vidéo cinématique et brochure PDF grâce à l’intelligence artificielle IAnnonce.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -24,6 +23,7 @@
       --green-bg: #f0fdf4;
       --green-border: #bbf7d0;
       --red: #ef4444;
+      --red-bg: #fef2f2;
       --radius: 12px;
       --radius-lg: 18px;
       --radius-xl: 24px;
@@ -31,35 +31,29 @@
       --shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
       --transition: 0.22s cubic-bezier(0.4, 0, 0.2, 1);
     }
-
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
     body {
       font-family: 'Inter', system-ui, -apple-system, sans-serif;
       background: var(--bg);
       color: var(--dark);
       line-height: 1.5;
       -webkit-font-smoothing: antialiased;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
     }
-
     .container {
       max-width: 860px;
       margin: 0 auto;
       padding: 32px 24px 80px;
-      width: 100%;
-      flex: 1;
     }
-
     .header {
       display: flex;
       justify-content: space-between;
       align-items: center;
       margin-bottom: 40px;
     }
-
     .logo {
       font-size: 1.5rem;
       font-weight: 800;
@@ -68,7 +62,6 @@
       text-decoration: none;
     }
     .logo span { color: var(--dark); }
-
     .back-link {
       font-size: 0.95rem;
       font-weight: 500;
@@ -77,7 +70,6 @@
       transition: color var(--transition);
     }
     .back-link:hover { color: var(--primary); }
-
     .page-title { margin-bottom: 36px; }
     .page-title h1 {
       font-size: clamp(1.7rem, 4vw, 2.1rem);
@@ -85,8 +77,11 @@
       letter-spacing: -0.7px;
       margin-bottom: 8px;
     }
-    .page-title p { color: var(--gray); font-size: 1.05rem; }
-
+    .page-title p {
+      color: var(--gray);
+      font-size: 1.05rem;
+    }
+    /* Stepper */
     .steps {
       display: flex;
       gap: 8px;
@@ -107,7 +102,6 @@
       color: var(--gray);
       white-space: nowrap;
       transition: all var(--transition);
-      cursor: pointer;
     }
     .step .num {
       width: 22px;
@@ -139,7 +133,6 @@
       background: var(--primary);
       color: white;
     }
-
     .box {
       background: white;
       border: 1px solid var(--border);
@@ -157,14 +150,13 @@
       align-items: center;
       gap: 10px;
     }
-
     .grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 18px 20px;
     }
+    .field { margin-bottom: 0; }
     .field.full { grid-column: 1 / -1; }
-
     label {
       display: block;
       font-size: 0.9rem;
@@ -172,8 +164,10 @@
       margin-bottom: 7px;
       color: var(--dark);
     }
-    label .required { color: var(--red); margin-left: 2px; }
-
+    label .required {
+      color: var(--red);
+      margin-left: 2px;
+    }
     input, select, textarea {
       width: 100%;
       padding: 13px 15px;
@@ -196,30 +190,32 @@
       box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.12);
     }
     input::placeholder, textarea::placeholder { color: #94a3b8; }
-    textarea { min-height: 100px; resize: vertical; }
-
+    textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
     select {
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2364748b' d='M2.5 4.5L6 8l3.5-3.5'/%3E%3C/svg%3E");
       background-repeat: no-repeat;
       background-position: right 14px center;
       padding-right: 36px;
     }
-
     .error-msg {
       display: none;
       font-size: 0.82rem;
       color: var(--red);
       margin-top: 6px;
     }
-    .error-msg.visible { display: block; }
-
+    .error-msg.visible {
+      display: block;
+    }
     .char-count {
       font-size: 0.8rem;
       color: var(--gray-light);
       text-align: right;
       margin-top: 6px;
     }
-
+    /* Upload */
     .upload-zone {
       border: 2px dashed #cbd5e1;
       border-radius: var(--radius-lg);
@@ -238,11 +234,26 @@
       border-color: var(--green);
       background: var(--green-bg);
     }
-    .upload-zone .icon { font-size: 2.8rem; margin-bottom: 12px; line-height: 1; }
-    .upload-zone h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 6px; }
-    .upload-zone p { color: var(--gray); font-size: 0.925rem; }
-    .upload-zone .hint { margin-top: 8px; font-size: 0.85rem; color: var(--gray-light); }
-
+    .upload-zone .icon {
+      font-size: 2.8rem;
+      margin-bottom: 12px;
+      line-height: 1;
+    }
+    .upload-zone h3 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .upload-zone p {
+      color: var(--gray);
+      font-size: 0.925rem;
+    }
+    .upload-zone .hint {
+      margin-top: 8px;
+      font-size: 0.85rem;
+      color: var(--gray-light);
+    }
+    /* Buttons */
     .btn {
       display: inline-flex;
       align-items: center;
@@ -279,17 +290,21 @@
       color: var(--dark);
       border: 1.5px solid var(--border);
     }
-    .btn-secondary:hover { background: var(--bg); }
-    .btn-lg { padding: 15px 28px; font-size: 1.05rem; }
+    .btn-secondary:hover {
+      background: var(--bg);
+    }
+    .btn-lg {
+      padding: 15px 28px;
+      font-size: 1.05rem;
+    }
     .btn-block { width: 100%; }
-
     .actions {
       display: flex;
       justify-content: flex-end;
       gap: 12px;
       margin-top: 28px;
     }
-
+    /* Analyse */
     #analyse { display: none; }
     .progress-wrap { margin: 28px 0 20px; }
     .progress-bar {
@@ -315,7 +330,7 @@
       font-size: 0.95rem;
       padding-left: 4px;
     }
-
+    /* Result */
     #result { display: none; }
     .result-card {
       background: var(--green-bg);
@@ -324,11 +339,15 @@
       padding: 32px;
       text-align: center;
     }
-    .result-card .emoji { font-size: 2.8rem; margin-bottom: 12px; }
+    .result-card .emoji {
+      font-size: 2.8rem;
+      margin-bottom: 12px;
+    }
     .result-card h2 {
       font-size: 1.45rem;
       font-weight: 800;
       margin-bottom: 20px;
+      justify-content: center;
     }
     .result-list {
       list-style: none;
@@ -366,100 +385,50 @@
       color: var(--green);
       font-size: 1.25rem;
     }
-
-    footer {
-      background: var(--dark);
-      color: var(--gray-light);
-      padding: 64px 0 36px;
-      margin-top: auto;
-    }
-    .footer-inner {
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 0 24px;
-    }
-    .footer-grid {
-      display: grid;
-      grid-template-columns: 1.6fr 1fr 1fr 1fr;
-      gap: 40px;
-      margin-bottom: 48px;
-    }
-    .footer-brand .logo {
-      margin-bottom: 16px;
-      display: inline-flex;
-      font-size: 1.5rem;
-      font-weight: 800;
-      letter-spacing: -0.5px;
-      color: var(--primary);
-    }
-    .footer-brand .logo span { color: white; }
-    .footer-brand p {
-      max-width: 280px;
-      font-size: 0.95rem;
-      line-height: 1.6;
-    }
-    footer h4 {
-      color: white;
-      font-size: 0.9rem;
-      font-weight: 600;
-      margin-bottom: 18px;
-    }
-    footer ul { list-style: none; }
-    footer li { margin-bottom: 10px; }
-    footer a {
-      font-size: 0.925rem;
-      transition: color var(--transition);
-      text-decoration: none;
-      color: inherit;
-    }
-    footer a:hover { color: white; }
-    .footer-bottom {
-      border-top: 1px solid #1e293b;
-      padding-top: 28px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 12px;
-      font-size: 0.875rem;
-    }
-
-    @media (max-width: 1100px) {
-      .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
-    }
     @media (max-width: 700px) {
       .container { padding: 24px 16px 60px; }
       .grid { grid-template-columns: 1fr; }
       .box { padding: 24px 20px; }
       .steps { gap: 6px; }
-      .step { padding: 8px 12px; font-size: 0.85rem; }
-      .actions { flex-direction: column-reverse; }
+      .step {
+        padding: 8px 12px;
+        font-size: 0.85rem;
+      }
+      .actions {
+        flex-direction: column-reverse;
+      }
       .actions .btn { width: 100%; }
-      .footer-grid { grid-template-columns: 1fr; gap: 28px; }
     }
   </style>
 </head>
 <body>
-
   <div class="container">
     <div class="header">
       <a href="index.html" class="logo">IA<span>nnonce</span></a>
-      <a href="index.html" class="back-link" id="backLink">← Retour à l’accueil</a>
+      <a href="dashboard.html" class="back-link">← Retour dashboard</a>
     </div>
 
     <div class="page-title">
-      <h1>Créer une nouvelle annonce 🚀</h1>
-      <p>Laissez l’intelligence artificielle orchestrer votre marketing immobilier.</p>
+      <h1>Créer un nouveau bien 🚀</h1>
+      <p>Laissez votre intelligence artificielle créer votre marketing immobilier complet.</p>
     </div>
 
     <div class="steps" id="stepper">
-      <div class="step active" data-step="1"><span class="num">1</span> Informations</div>
-      <div class="step" data-step="2"><span class="num">2</span> Photos</div>
-      <div class="step" data-step="3"><span class="num">3</span> Analyse IA</div>
-      <div class="step" data-step="4"><span class="num">4</span> Résultat</div>
+      <div class="step active" data-step="1">
+        <span class="num">1</span> Informations
+      </div>
+      <div class="step" data-step="2">
+        <span class="num">2</span> Photos
+      </div>
+      <div class="step" data-step="3">
+        <span class="num">3</span> Analyse IA
+      </div>
+      <div class="step" data-step="4">
+        <span class="num">4</span> Résultat
+      </div>
     </div>
 
-    <!-- STEP 1 -->
+    <!-- ========== STEP 1 ========== -->
     <div class="box" id="step-1">
       <h2>🏠 Informations du bien</h2>
       <form id="propertyForm" novalidate>
@@ -510,29 +479,33 @@
           </div>
         </div>
         <div class="actions">
-          <button type="button" class="btn btn-primary" id="btnStep1">Continuer → Photos</button>
+          <button type="button" class="btn btn-primary" id="btnStep1" onclick="validateAndGoStep2()">
+            Continuer → Photos
+          </button>
         </div>
       </form>
     </div>
 
-    <!-- STEP 2 -->
+    <!-- ========== STEP 2 ========== -->
     <div class="box" id="step-2" style="display:none;">
       <h2>📸 Photos du bien</h2>
       <div class="upload-zone" id="upload-zone" role="button" tabindex="0">
         <div class="icon">📷</div>
         <h3>Déposez vos photos ici</h3>
-        <p>JPG, PNG, WebP • Minimum 5 photos recommandées</p>
+        <p>JPG, PNG • Minimum 5 photos recommandées</p>
         <p class="hint">Glissez-déposez ou cliquez pour sélectionner</p>
       </div>
       <input type="file" id="file-input" multiple accept="image/jpeg,image/png,image/webp" style="display:none;">
       <div class="actions">
-        <button type="button" class="btn btn-secondary" id="btnBack1">← Retour</button>
-        <button type="button" class="btn btn-primary" id="btnStep2" disabled>Lancer l’analyse IA →</button>
+        <button type="button" class="btn btn-secondary" onclick="goToStep(1)">← Retour</button>
+        <button type="button" class="btn btn-primary" id="btnStep2" onclick="startAI()" disabled>
+          Lancer l’analyse IA →
+        </button>
       </div>
     </div>
 
-    <!-- STEP 3 -->
-    <div class="box" id="analyse" style="display:none;">
+    <!-- ========== STEP 3 ========== -->
+    <div class="box" id="analyse">
       <h2>🧠 Intelligence artificielle en action</h2>
       <div class="progress-wrap">
         <div class="progress-bar">
@@ -542,8 +515,8 @@
       <div id="messages"></div>
     </div>
 
-    <!-- STEP 4 -->
-    <div class="box" id="result" style="display:none;">
+    <!-- ========== STEP 4 ========== -->
+    <div class="box" id="result">
       <div class="result-card">
         <div class="emoji">🎉</div>
         <h2>Votre pack marketing est prêt !</h2>
@@ -556,147 +529,122 @@
         <div class="score-badge">
           Score marketing IA : <span>94/100</span>
         </div>
-        <a href="result.html" class="btn btn-primary btn-lg btn-block">Voir mon dossier complet →</a>
+        <a href="result.html" class="btn btn-primary btn-lg btn-block">
+          Voir mon dossier complet →
+        </a>
       </div>
     </div>
   </div>
 
-  <footer>
-    <div class="footer-inner">
-      <div class="footer-grid">
-        <div class="footer-brand">
-          <a href="index.html" class="logo">IA<span>nnonce</span></a>
-          <p>Le copilote marketing immobilier propulsé par l’intelligence artificielle. Créez des annonces qui vendent vraiment.</p>
-        </div>
-        <div>
-          <h4>Produit</h4>
-          <ul>
-            <li><a href="index.html#fonctionnalites">Fonctionnalités</a></li>
-            <li><a href="index.html#demo">Démonstration</a></li>
-            <li><a href="index.html#tarifs">Tarifs</a></li>
-          </ul>
-        </div>
-        <div>
-          <h4>Entreprise</h4>
-          <ul>
-            <li><a href="#">À propos</a></li>
-            <li><a href="#">Blog</a></li>
-            <li><a href="#">Contact</a></li>
-          </ul>
-        </div>
-        <div>
-          <h4>Légal</h4>
-          <ul>
-            <li><a href="#">Confidentialité</a></li>
-            <li><a href="#">Conditions</a></li>
-            <li><a href="#">Mentions légales</a></li>
-          </ul>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <span>© 2026 IAnnonce.ch. Tous droits réservés.</span>
-        <span>Swiss Administration & Accounting SARL, 1963 Vétroz</span>
-      </div>
-    </div>
-  </footer>
-
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
-    // ========== CONFIG ==========
-    const SUPABASE_URL = "https://udubddnueiupdjewkzyp.supabase.co";
-    const SUPABASE_KEY = "sb_publishable_rnvBmTb9am3nY92vmpBeRA_AnpHkfL-"; // Remplace par ta vraie clé
-
-    let supabaseClient = null;
-    try {
-      if (window.supabase) {
-        supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-      }
-    } catch (e) {
-      console.warn("Supabase non initialisé :", e);
-    }
-
-    let currentStep = 1;
-    let selectedFiles = [];
-    const MAX_FILES = 20;
-
-    // ========== INIT ==========
-    document.addEventListener('DOMContentLoaded', () => {
-      // On attache d'abord les boutons (priorité absolue)
-      setupButtons();
-      setupHighlightsCounter();
-      setupPhotoUpload();
-      goToStep(1);
-
-      // Ensuite on gère le lien retour (non bloquant)
-      setupBackLink();
+    // ========== Compteur de caractères ==========
+    const highlights = document.getElementById('highlights');
+    const charCount = document.getElementById('charCount');
+    highlights.addEventListener('input', () => {
+      charCount.textContent = highlights.value.length;
     });
 
-    // ========== LIEN RETOUR ==========
-    async function setupBackLink() {
-      const backLink = document.getElementById('backLink');
-      if (!backLink) return;
-
-      // Par défaut
-      backLink.href = 'index.html';
-      backLink.textContent = '← Retour à l’accueil';
-
-      if (!supabaseClient) return;
-
-      try {
-        const { data: { session } } = await supabaseClient.auth.getSession();
-        if (session) {
-          backLink.href = 'dashboard.html';
-          backLink.textContent = '← Retour au Dashboard';
+    // ========== Validation Step 1 ==========
+    function validateAndGoStep2() {
+      let isValid = true;
+      const fields = [
+        { id: 'type', errorId: 'error-type' },
+        { id: 'transaction', errorId: 'error-transaction' },
+        { id: 'location', errorId: 'error-location' },
+        { id: 'price', errorId: 'error-price' }
+      ];
+      fields.forEach(field => {
+        const el = document.getElementById(field.id);
+        const error = document.getElementById(field.errorId);
+        el.classList.remove('error');
+        error.classList.remove('visible');
+        if (!el.value.trim()) {
+          el.classList.add('error');
+          error.classList.add('visible');
+          isValid = false;
         }
-      } catch (err) {
-        console.warn("Impossible de vérifier la session :", err);
-      }
-    }
-
-    // ========== BOUTONS ==========
-    function setupButtons() {
-      const btn1 = document.getElementById('btnStep1');
-      const btnBack = document.getElementById('btnBack1');
-      const btn2 = document.getElementById('btnStep2');
-
-      if (btn1) {
-        btn1.addEventListener('click', function(e) {
-          e.preventDefault();
-          validateAndGoStep2();
-        });
-      }
-      if (btnBack) {
-        btnBack.addEventListener('click', function(e) {
-          e.preventDefault();
-          goToStep(1);
-        });
-      }
-      if (btn2) {
-        btn2.addEventListener('click', function(e) {
-          e.preventDefault();
-          startAI();
-        });
-      }
-    }
-
-    // ========== COMPTEUR ==========
-    function setupHighlightsCounter() {
-      const highlights = document.getElementById('highlights');
-      const charCount = document.getElementById('charCount');
-      if (!highlights || !charCount) return;
-      highlights.addEventListener('input', () => {
-        charCount.textContent = highlights.value.length;
       });
+      // Validation basique du prix
+      const price = document.getElementById('price');
+      if (price.value.trim() && !/[\d]/.test(price.value)) {
+        price.classList.add('error');
+        document.getElementById('error-price').classList.add('visible');
+        isValid = false;
+      }
+      if (isValid) {
+        goToStep(2);
+      } else {
+        const firstError = document.querySelector('.error');
+        if (firstError) firstError.focus();
+      }
     }
 
-    // ========== NAVIGATION ==========
-    function goToStep(step) {
-      currentStep = step;
+    // Enlever l'erreur quand l'utilisateur corrige
+    ['type', 'transaction', 'location', 'price'].forEach(id => {
+      document.getElementById(id).addEventListener('input', function() {
+        this.classList.remove('error');
+        const error = document.getElementById('error-' + id);
+        if (error) error.classList.remove('visible');
+      });
+      document.getElementById(id).addEventListener('change', function() {
+        this.classList.remove('error');
+        const error = document.getElementById('error-' + id);
+        if (error) error.classList.remove('visible');
+      });
+    });
 
-      document.getElementById('step-1').style.display = step === 1 ? 'block' : 'none';
-      document.getElementById('step-2').style.display = step === 2 ? 'block' : 'none';
-      document.getElementById('analyse').style.display = step === 3 ? 'block' : 'none';
-      document.getElementById('result').style.display = step === 4 ? 'block' : 'none';
+    // ========== Upload ==========
+    const uploadZone = document.getElementById('upload-zone');
+    const fileInput = document.getElementById('file-input');
+    const btnStep2 = document.getElementById('btnStep2');
+    let selectedFiles = [];
+
+    uploadZone.addEventListener('click', () => fileInput.click());
+    uploadZone.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') fileInput.click();
+    });
+
+    uploadZone.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      uploadZone.classList.add('dragover');
+    });
+    uploadZone.addEventListener('dragleave', () => {
+      uploadZone.classList.remove('dragover');
+    });
+    uploadZone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      uploadZone.classList.remove('dragover');
+      handleFiles(e.dataTransfer.files);
+    });
+
+    fileInput.addEventListener('change', () => {
+      handleFiles(fileInput.files);
+    });
+
+    function handleFiles(files) {
+      selectedFiles = Array.from(files).filter(f => f.type.startsWith('image/'));
+     
+      if (selectedFiles.length > 0) {
+        uploadZone.classList.add('has-files');
+        uploadZone.innerHTML = `
+          <div class="icon">✅</div>
+          <h3>${selectedFiles.length} photo${selectedFiles.length > 1 ? 's' : ''} sélectionnée${selectedFiles.length > 1 ? 's' : ''}</h3>
+          <p>Prêt pour l’analyse IA</p>
+          <p class="hint">Cliquez pour modifier la sélection</p>
+        `;
+        btnStep2.disabled = false;
+      } else {
+        uploadZone.classList.remove('has-files');
+        btnStep2.disabled = true;
+      }
+    }
+
+    // ========== Navigation étapes ==========
+    function goToStep(step) {
+      document.getElementById('step-1').style.display = 'none';
+      document.getElementById('step-2').style.display = 'none';
+      document.getElementById('analyse').style.display = 'none';
+      document.getElementById('result').style.display = 'none';
 
       document.querySelectorAll('.step').forEach(el => {
         const s = parseInt(el.dataset.step);
@@ -705,176 +653,53 @@
         if (s === step) el.classList.add('active');
       });
 
+      if (step === 1) document.getElementById('step-1').style.display = 'block';
+      if (step === 2) document.getElementById('step-2').style.display = 'block';
+      if (step === 3) document.getElementById('analyse').style.display = 'block';
+      if (step === 4) document.getElementById('result').style.display = 'block';
+
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // ========== VALIDATION ==========
-    function validateAndGoStep2() {
-      let valid = true;
-      const fields = ['type', 'transaction', 'location', 'price'];
-
-      fields.forEach(id => {
-        const el = document.getElementById(id);
-        const error = document.getElementById('error-' + id);
-        if (!el || !error) return;
-
-        el.classList.remove('error');
-        error.classList.remove('visible');
-
-        if (!el.value.trim()) {
-          el.classList.add('error');
-          error.classList.add('visible');
-          valid = false;
-        }
-      });
-
-      const price = document.getElementById('price');
-      if (price && price.value.trim()) {
-        const num = parseFloat(price.value.replace(/\s/g, '').replace(/'/g, '').replace(',', '.'));
-        if (isNaN(num) || num <= 0) {
-          price.classList.add('error');
-          document.getElementById('error-price').classList.add('visible');
-          valid = false;
-        }
-      }
-
-      if (valid) {
-        goToStep(2);
-      } else {
-        // Focus sur le premier champ en erreur
-        const firstError = document.querySelector('.error');
-        if (firstError) firstError.focus();
-      }
-    }
-
-    // ========== UPLOAD ==========
-    function setupPhotoUpload() {
-      const zone = document.getElementById('upload-zone');
-      const input = document.getElementById('file-input');
-      if (!zone || !input) return;
-
-      zone.addEventListener('click', () => input.click());
-      zone.addEventListener('keydown', e => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          input.click();
-        }
-      });
-
-      zone.addEventListener('dragover', e => {
-        e.preventDefault();
-        zone.classList.add('dragover');
-      });
-      zone.addEventListener('dragleave', () => zone.classList.remove('dragover'));
-      zone.addEventListener('drop', e => {
-        e.preventDefault();
-        zone.classList.remove('dragover');
-        handleFiles(e.dataTransfer.files);
-      });
-
-      input.addEventListener('change', () => handleFiles(input.files));
-    }
-
-    function handleFiles(files) {
-      const valid = Array.from(files).filter(f =>
-        ['image/jpeg', 'image/png', 'image/webp'].includes(f.type)
-      );
-
-      if (!valid.length) {
-        alert('Veuillez sélectionner uniquement des images JPG, PNG ou WebP.');
-        return;
-      }
-
-      valid.forEach(file => {
-        const exists = selectedFiles.some(f =>
-          f.name === file.name && f.size === file.size && f.lastModified === file.lastModified
-        );
-        if (!exists) selectedFiles.push(file);
-      });
-
-      if (selectedFiles.length > MAX_FILES) {
-        selectedFiles = selectedFiles.slice(0, MAX_FILES);
-        alert(Maximum ${MAX_FILES} photos autorisées.);
-      }
-
-      updatePhotoUI();
-    }
-
-    function updatePhotoUI() {
-      const zone = document.getElementById('upload-zone');
-      const btn = document.getElementById('btnStep2');
-      if (!zone || !btn) return;
-
-      const count = selectedFiles.length;
-      btn.disabled = count === 0;
-
-      if (count === 0) {
-        zone.classList.remove('has-files');
-        zone.innerHTML = `
-          <div class="icon">📷</div>
-          <h3>Déposez vos photos ici</h3>
-          <p>JPG, PNG, WebP • Minimum 5 photos recommandées</p>
-          <p class="hint">Glissez-déposez ou cliquez pour sélectionner</p>
-        `;
-      } else {
-        zone.classList.add('has-files');
-        zone.innerHTML = `
-          <div class="icon">✅</div>
-          <h3>${count} photo${count > 1 ? 's' : ''} sélectionnée${count > 1 ? 's' : ''}</h3>
-          <p>Prêt pour l’analyse IA</p>
-          <p class="hint">Cliquez pour modifier la sélection</p>
-        `;
-      }
-    }
-
-    // ========== ANALYSE IA ==========
-    async function startAI() {
+    // ========== Analyse IA ==========
+    function startAI() {
       if (selectedFiles.length === 0) {
-        alert('Veuillez ajouter au moins une photo.');
+        alert('Veuillez sélectionner au moins une photo');
         return;
       }
-
       goToStep(3);
-
       const bar = document.getElementById('bar');
       const messages = document.getElementById('messages');
-      if (!bar || !messages) return;
-
       messages.innerHTML = '';
       bar.style.width = '0%';
 
+      const type = document.getElementById('type').value || 'Appartement';
       const steps = [
-        { p: 15, msg: '📥 Préparation des informations du bien…' },
-        { p: 30, msg: '📸 Analyse des photos…' },
-        { p: 50, msg: '🏠 Identification des caractéristiques…' },
-        { p: 70, msg: '✍️ Génération du contenu marketing…' },
-        { p: 85, msg: '🎬 Création de la vidéo cinématique…' },
-        { p: 100, msg: '✅ Votre pack marketing est prêt !' }
+        '🔍 Analyse des photos…',
+        `🏠 Type de bien détecté : ${type.charAt(0).toUpperCase() + type.slice(1)}`,
+        '✨ Luminosité et volumes analysés',
+        '🌄 Vue et environnement identifiés',
+        '🛋️ Cuisine, chambres et terrasse détectées',
+        '✍️ Rédaction de l’annonce premium',
+        '🎬 Génération de la vidéo cinématique',
+        '📄 Création de la brochure PDF'
       ];
 
-      for (const step of steps) {
-        await new Promise(r => setTimeout(r, 850));
-        bar.style.width = step.p + '%';
-        const p = document.createElement('p');
-        p.textContent = step.msg;
-        messages.appendChild(p);
-      }
-
-      try {
-        sessionStorage.setItem('iaAnnonceProperty', JSON.stringify({
-          type: document.getElementById('type').value,
-          transaction: document.getElementById('transaction').value,
-          location: document.getElementById('location').value,
-          price: document.getElementById('price').value,
-          surface: document.getElementById('surface').value,
-          rooms: document.getElementById('rooms').value,
-          highlights: document.getElementById('highlights').value,
-          photoCount: selectedFiles.length
-        }));
-      } catch (e) {}
-
-      await new Promise(r => setTimeout(r, 600));
-      goToStep(4);
+      let progress = 0;
+      const interval = setInterval(() => {
+        progress += 12.5;
+        bar.style.width = Math.min(progress, 100) + '%';
+        const index = Math.floor(progress / 12.5) - 1;
+        if (index >= 0 && index < steps.length) {
+          const p = document.createElement('p');
+          p.textContent = steps[index];
+          messages.appendChild(p);
+        }
+        if (progress >= 100) {
+          clearInterval(interval);
+          setTimeout(() => goToStep(4), 900);
+        }
+      }, 750);
     }
   </script>
 </body>
