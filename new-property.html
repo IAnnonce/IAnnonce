@@ -197,6 +197,10 @@
       font-size: 0.95rem;
       cursor: pointer;
       font-family: inherit;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
     }
     .btn-primary {
       background: var(--primary);
@@ -239,7 +243,7 @@
       background: var(--green-bg);
       border: 1.5px solid var(--green-border);
       border-radius: 16px;
-      padding: 28px;
+      padding: 28px 24px;
       text-align: center;
     }
     .result-card .emoji { font-size: 2.6rem; margin-bottom: 10px; }
@@ -270,6 +274,16 @@
       margin-bottom: 20px;
     }
     .score span { color: var(--green); }
+
+    /* CORRECTION BOUTON MOBILE */
+    .result-card .btn {
+      width: 100%;
+      white-space: normal;
+      line-height: 1.35;
+      padding: 14px 18px;
+      text-align: center;
+      box-sizing: border-box;
+    }
 
     footer {
       background: var(--dark);
@@ -315,6 +329,17 @@
       .actions { flex-direction: column-reverse; }
       .actions .btn { width: 100%; }
       .footer-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 480px) {
+      .container { padding: 24px 16px 50px; }
+      .result-card {
+        padding: 24px 16px;
+      }
+      .result-card .btn {
+        font-size: 0.95rem;
+        padding: 14px 16px;
+      }
     }
   </style>
 </head>
@@ -427,7 +452,9 @@
           <li>Publications réseaux sociaux</li>
         </ul>
         <div class="score">Score marketing IA : <span>94/100</span></div>
-        <a href="result.html" class="btn btn-primary btn-block">Voir mon dossier complet →</a>
+        <a href="result.html" class="btn btn-primary btn-block">
+          Voir mon dossier complet →
+        </a>
       </div>
     </div>
   </div>
@@ -484,10 +511,8 @@
       console.warn("Supabase non initialisé");
     }
 
-    // ========== VARIABLES ==========
     let selectedFiles = [];
 
-    // ========== NAVIGATION ==========
     function goToStep(step) {
       document.getElementById('step-1').style.display = step === 1 ? 'block' : 'none';
       document.getElementById('step-2').style.display = step === 2 ? 'block' : 'none';
@@ -503,7 +528,6 @@
       window.scrollTo(0, 0);
     }
 
-    // ========== VALIDATION ==========
     function validateStep1() {
       let valid = true;
       const fields = ['type', 'transaction', 'location', 'price'];
@@ -520,12 +544,9 @@
         }
       });
 
-      if (valid) {
-        goToStep(2);
-      }
+      if (valid) goToStep(2);
     }
 
-    // ========== UPLOAD ==========
     function handleFiles(files) {
       selectedFiles = Array.from(files).filter(f => f.type.startsWith('image/'));
       const zone = document.getElementById('uploadZone');
@@ -550,7 +571,6 @@
       }
     }
 
-    // ========== ANALYSE ==========
     function startAI() {
       if (selectedFiles.length === 0) {
         alert('Ajoutez au moins une photo');
@@ -587,12 +607,10 @@
       }, 750);
     }
 
-    // ========== LIEN RETOUR ==========
     async function setupBackLink() {
       const backLink = document.getElementById('backLink');
       if (!backLink) return;
 
-      // Valeur par défaut
       backLink.href = 'index.html';
       backLink.textContent = '← Retour à l’accueil';
 
@@ -605,18 +623,15 @@
           backLink.textContent = '← Retour au Dashboard';
         }
       } catch (e) {
-        console.warn('Session Supabase non disponible');
+        console.warn('Session non disponible');
       }
     }
 
-    // ========== INIT ==========
     document.addEventListener('DOMContentLoaded', () => {
-      // Boutons
       document.getElementById('btnNext1').addEventListener('click', validateStep1);
       document.getElementById('btnBack').addEventListener('click', () => goToStep(1));
       document.getElementById('btnNext2').addEventListener('click', startAI);
 
-      // Upload
       const zone = document.getElementById('uploadZone');
       const input = document.getElementById('fileInput');
 
