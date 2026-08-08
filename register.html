@@ -3,420 +3,570 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Créer un compte – IAnnonce</title>
-  <meta name="theme-color" content="#2563eb">
-
+  <title>IAnnonce – Créer un compte</title>
+  <meta name="description" content="Créez votre compte IAnnonce et générez vos annonces immobilières avec l'intelligence artificielle.">
+  <meta name="theme-color" content="#0f172a">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
   <style>
     :root {
       --primary: #2563eb;
       --primary-hover: #1d4ed8;
-      --secondary: #06b6d4;
       --dark: #0f172a;
       --gray: #64748b;
       --gray-light: #94a3b8;
       --border: #e2e8f0;
       --bg: #f8fafc;
       --white: #ffffff;
-      --red: #ef4444;
-      --radius: 12px;
-      --radius-lg: 18px;
-      --radius-xl: 24px;
-      --shadow: 0 10px 40px rgba(15, 23, 42, 0.08);
-      --transition: 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+      --danger: #dc2626;
+      --danger-bg: #fef2f2;
+      --success: #15803d;
+      --success-bg: #f0fdf4;
+      --radius: 14px;
+      --shadow: 0 20px 50px rgba(15, 23, 42, 0.08);
+      --transition: 0.2s ease;
     }
-
     *, *::before, *::after {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
     }
-
     body {
-      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      min-height: 100vh;
+      font-family: "Inter", system-ui, -apple-system, sans-serif;
       background: var(--bg);
       color: var(--dark);
-      min-height: 100vh;
       display: flex;
       flex-direction: column;
       -webkit-font-smoothing: antialiased;
     }
-
     a {
       color: inherit;
       text-decoration: none;
     }
 
-    .top-bar {
-      padding: 20px 24px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .logo {
-      font-size: 1.5rem;
-      font-weight: 800;
-      color: var(--primary);
-      letter-spacing: -0.5px;
-    }
-    .logo span {
-      color: var(--dark);
-    }
-
-    .back-link {
-      font-size: 0.95rem;
-      font-weight: 500;
-      color: var(--gray);
-      transition: color var(--transition);
-    }
-    .back-link:hover {
-      color: var(--primary);
-    }
-
+    /* MAIN */
     .main {
       flex: 1;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 20px 24px 60px;
+      padding: 40px 24px;
     }
-
-    .register-card {
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: var(--radius-xl);
-      padding: 40px 36px;
+    .register-wrapper {
       width: 100%;
-      max-width: 440px;
-      box-shadow: var(--shadow);
+      max-width: 460px;
     }
-
-    .register-card h1 {
-      font-size: 1.6rem;
-      font-weight: 800;
-      letter-spacing: -0.5px;
-      margin-bottom: 8px;
+    .brand {
       text-align: center;
-    }
-
-    .register-card .subtitle {
-      text-align: center;
-      color: var(--gray);
-      font-size: 0.975rem;
       margin-bottom: 28px;
     }
-
-    .field {
-      margin-bottom: 16px;
+    .brand a {
+      display: inline-block;
+      font-size: 1.8rem;
+      font-weight: 800;
+      letter-spacing: -0.7px;
+      color: var(--primary);
     }
-
+    .brand span {
+      color: var(--dark);
+    }
+    .card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 36px;
+      box-shadow: var(--shadow);
+    }
+    .card-header {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+    .card-header h1 {
+      font-size: 1.65rem;
+      line-height: 1.2;
+      letter-spacing: -0.5px;
+      margin-bottom: 8px;
+    }
+    .card-header p {
+      color: var(--gray);
+      font-size: 0.92rem;
+      line-height: 1.5;
+    }
+    .form-group {
+      margin-bottom: 18px;
+    }
     label {
       display: block;
-      font-size: 0.9rem;
-      font-weight: 600;
       margin-bottom: 7px;
+      font-size: 0.88rem;
+      font-weight: 600;
       color: var(--dark);
     }
-
     input {
       width: 100%;
-      padding: 13px 15px;
-      border: 1.5px solid var(--border);
-      border-radius: var(--radius);
-      font-size: 0.975rem;
-      font-family: inherit;
+      height: 48px;
+      padding: 0 14px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: #fff;
       color: var(--dark);
-      background: white;
-      transition: border-color var(--transition), box-shadow var(--transition);
-    }
-    input:focus {
+      font-family: inherit;
+      font-size: 0.95rem;
       outline: none;
-      border-color: var(--primary);
-      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
-    }
-    input.error {
-      border-color: var(--red);
-      box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.12);
+      transition: border-color var(--transition), box-shadow var(--transition);
     }
     input::placeholder {
       color: #94a3b8;
     }
-
-    .error-msg {
-      display: none;
-      font-size: 0.82rem;
-      color: var(--red);
+    input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+    }
+    input.input-error {
+      border-color: var(--danger);
+      background: var(--danger-bg);
+    }
+    .password-hint {
       margin-top: 6px;
-    }
-    .error-msg.visible {
-      display: block;
-    }
-
-    .password-wrap {
-      position: relative;
-    }
-    .password-wrap input {
-      padding-right: 48px;
-    }
-    .toggle-password {
-      position: absolute;
-      right: 12px;
-      top: 50%;
-      transform: translateY(-50%);
-      background: none;
-      border: none;
-      cursor: pointer;
-      font-size: 1.1rem;
       color: var(--gray);
-      padding: 4px;
+      font-size: 0.76rem;
+      line-height: 1.4;
     }
-
     .terms {
       display: flex;
       align-items: flex-start;
       gap: 10px;
-      margin: 20px 0 24px;
-      font-size: 0.875rem;
-      color: var(--gray);
-      line-height: 1.45;
+      margin: 20px 0;
     }
-    .terms input {
-      width: auto;
-      margin-top: 3px;
+    .terms input[type="checkbox"] {
+      width: 17px;
+      height: 17px;
+      min-width: 17px;
+      margin-top: 2px;
       accent-color: var(--primary);
-      flex-shrink: 0;
+      cursor: pointer;
+    }
+    .terms label {
+      margin: 0;
+      font-size: 0.8rem;
+      line-height: 1.5;
+      font-weight: 400;
+      color: var(--gray);
+      cursor: pointer;
     }
     .terms a {
       color: var(--primary);
-      font-weight: 500;
+      font-weight: 600;
     }
-    .terms a:hover {
-      text-decoration: underline;
+    .message {
+      display: none;
+      border-radius: 10px;
+      padding: 12px 14px;
+      margin-bottom: 18px;
+      font-size: 0.85rem;
+      line-height: 1.5;
     }
-
-    .btn {
+    .message.visible {
+      display: block;
+    }
+    .message.error {
+      color: var(--danger);
+      background: var(--danger-bg);
+      border: 1px solid #fecaca;
+    }
+    .message.success {
+      color: var(--success);
+      background: var(--success-bg);
+      border: 1px solid #bbf7d0;
+    }
+    .btn-submit {
+      width: 100%;
+      height: 50px;
+      border: none;
+      border-radius: 11px;
+      background: var(--primary);
+      color: white;
+      font-family: inherit;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+      box-shadow: 0 5px 14px rgba(37, 99, 235, 0.22);
+    }
+    .btn-submit:hover:not(:disabled) {
+      background: var(--primary-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 7px 18px rgba(37, 99, 235, 0.28);
+    }
+    .btn-submit:disabled {
+      opacity: 0.65;
+      cursor: not-allowed;
+      transform: none;
+    }
+    .login-link {
+      text-align: center;
+      margin-top: 22px;
+      color: var(--gray);
+      font-size: 0.88rem;
+    }
+    .login-link a {
+      color: var(--primary);
+      font-weight: 700;
+    }
+    .confirmation {
+      display: none;
+      text-align: center;
+    }
+    .confirmation.visible {
+      display: block;
+    }
+    .confirmation-icon {
+      width: 64px;
+      height: 64px;
+      margin: 0 auto 20px;
+      border-radius: 50%;
+      background: var(--success-bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+    }
+    .confirmation h2 {
+      font-size: 1.35rem;
+      margin-bottom: 10px;
+    }
+    .confirmation p {
+      color: var(--gray);
+      font-size: 0.9rem;
+      line-height: 1.6;
+      margin-bottom: 22px;
+    }
+    .confirmation-email {
+      font-weight: 700;
+      color: var(--dark);
+      word-break: break-word;
+    }
+    .btn-login {
       display: inline-flex;
       align-items: center;
       justify-content: center;
       width: 100%;
-      padding: 14px 24px;
-      border-radius: 12px;
-      border: none;
-      font-weight: 600;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: all var(--transition);
-      font-family: inherit;
-    }
-    .btn-primary {
+      height: 48px;
+      border-radius: 10px;
       background: var(--primary);
       color: white;
-      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.25);
-    }
-    .btn-primary:hover {
-      background: var(--primary-hover);
-      transform: translateY(-1px);
-      box-shadow: 0 6px 18px rgba(37, 99, 235, 0.32);
-    }
-    .btn-primary:disabled {
-      opacity: 0.55;
-      cursor: not-allowed;
-      transform: none;
-      box-shadow: none;
+      font-size: 0.9rem;
+      font-weight: 700;
     }
 
-    .divider {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      margin: 24px 0;
+    /* FOOTER (identique dashboard) */
+    footer {
+      background: var(--dark);
       color: var(--gray-light);
-      font-size: 0.85rem;
+      padding: 64px 0 36px;
+      margin-top: auto;
     }
-    .divider::before,
-    .divider::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: var(--border);
+    .footer-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px;
     }
-
-    .login-link {
-      text-align: center;
-      margin-top: 24px;
-      font-size: 0.95rem;
-      color: var(--gray);
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.6fr 1fr 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 48px;
     }
-    .login-link a {
+    .footer-brand .logo {
+      margin-bottom: 16px;
+      display: inline-flex;
+      padding: 0;
+      font-size: 1.5rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
       color: var(--primary);
+    }
+    .footer-brand .logo span {
+      color: white;
+    }
+    .footer-brand p {
+      max-width: 280px;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+    footer h4 {
+      color: white;
+      font-size: 0.9rem;
       font-weight: 600;
+      margin-bottom: 18px;
     }
-    .login-link a:hover {
-      text-decoration: underline;
+    footer ul {
+      list-style: none;
+    }
+    footer li {
+      margin-bottom: 10px;
+    }
+    footer a {
+      font-size: 0.925rem;
+      transition: color 0.2s ease;
+    }
+    footer a:hover {
+      color: white;
+    }
+    .footer-bottom {
+      border-top: 1px solid #1e293b;
+      padding-top: 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 0.875rem;
     }
 
-    .demo-note {
-      margin-top: 20px;
-      padding: 12px 16px;
-      background: #eff6ff;
-      border: 1px solid #bfdbfe;
-      border-radius: 10px;
-      font-size: 0.85rem;
-      color: #1e40af;
-      text-align: center;
-    }
-
-    @media (max-width: 480px) {
-      .register-card {
-        padding: 32px 24px;
+    @media (max-width: 1100px) {
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 32px;
       }
-      .top-bar {
-        padding: 16px 18px;
+    }
+    @media (max-width: 600px) {
+      .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 28px;
+      }
+    }
+    @media (max-width: 520px) {
+      .main {
+        padding: 24px 16px;
+      }
+      .card {
+        padding: 28px 20px;
+        border-radius: 16px;
+      }
+      .brand {
+        margin-bottom: 20px;
+      }
+      .brand a {
+        font-size: 1.6rem;
+      }
+      .card-header h1 {
+        font-size: 1.45rem;
       }
     }
   </style>
 </head>
 <body>
-
-  <div class="top-bar">
-    <a href="index.html" class="logo">IA<span>nnonce</span></a>
-    <a href="index.html" class="back-link">← Retour</a>
-  </div>
-
   <main class="main">
-    <div class="register-card">
-      <h1>Créer un compte</h1>
-      <p class="subtitle">Commencez à créer vos annonces IA en quelques minutes</p>
+    <div class="register-wrapper">
+      <!-- BRAND -->
+      <div class="brand">
+        <a href="index.html">IA<span>nnonce</span></a>
+      </div>
 
-      <form id="registerForm" onsubmit="handleRegister(event)" novalidate>
-        <div class="field">
-          <label for="name">Nom complet</label>
-          <input type="text" id="name" placeholder="Gabriel Dupont" required autocomplete="name">
-          <div class="error-msg" id="error-name">Veuillez entrer votre nom</div>
-        </div>
-
-        <div class="field">
-          <label for="email">Email</label>
-          <input type="email" id="email" placeholder="vous@email.com" required autocomplete="email">
-          <div class="error-msg" id="error-email">Veuillez entrer un email valide</div>
-        </div>
-
-        <div class="field">
-          <label for="password">Mot de passe</label>
-          <div class="password-wrap">
-            <input type="password" id="password" placeholder="Minimum 8 caractères" required minlength="8" autocomplete="new-password">
-            <button type="button" class="toggle-password" onclick="togglePassword('password')" aria-label="Afficher le mot de passe">👁️</button>
+      <!-- CARD -->
+      <div class="card">
+        <!-- REGISTER FORM -->
+        <div id="registerView">
+          <div class="card-header">
+            <h1>Créer votre compte</h1>
+            <p>Commencez à créer vos annonces immobilières avec IAnnonce.</p>
           </div>
-          <div class="error-msg" id="error-password">Le mot de passe doit contenir au moins 8 caractères</div>
-        </div>
 
-        <div class="field">
-          <label for="passwordConfirm">Confirmer le mot de passe</label>
-          <div class="password-wrap">
-            <input type="password" id="passwordConfirm" placeholder="Retapez votre mot de passe" required autocomplete="new-password">
-            <button type="button" class="toggle-password" onclick="togglePassword('passwordConfirm')" aria-label="Afficher le mot de passe">👁️</button>
+          <div id="message" class="message" role="alert" aria-live="polite"></div>
+
+          <form id="registerForm" novalidate>
+            <div class="form-group">
+              <label for="name">Nom complet</label>
+              <input type="text" id="name" name="name" placeholder="Gabriel Tufo" autocomplete="name" required>
+            </div>
+
+            <div class="form-group">
+              <label for="email">Adresse e-mail</label>
+              <input type="email" id="email" name="email" placeholder="vous@exemple.ch" autocomplete="email" required>
+            </div>
+
+            <div class="form-group">
+              <label for="password">Mot de passe</label>
+              <input type="password" id="password" name="password" placeholder="Minimum 8 caractères" autocomplete="new-password" minlength="8" required>
+              <div class="password-hint">Minimum 8 caractères.</div>
+            </div>
+
+            <div class="form-group">
+              <label for="passwordConfirm">Confirmer le mot de passe</label>
+              <input type="password" id="passwordConfirm" name="passwordConfirm" placeholder="Répétez votre mot de passe" autocomplete="new-password" minlength="8" required>
+            </div>
+
+            <div class="terms">
+              <input type="checkbox" id="terms" name="terms" required>
+              <label for="terms">
+                J'accepte les
+                <a href="#" target="_blank" rel="noopener">conditions d'utilisation</a>
+                et la
+                <a href="#" target="_blank" rel="noopener">politique de confidentialité</a>.
+              </label>
+            </div>
+
+            <button type="submit" id="submitButton" class="btn-submit">
+              Créer mon compte
+            </button>
+          </form>
+
+          <div class="login-link">
+            Vous avez déjà un compte ?
+            <a href="login.html">Se connecter</a>
           </div>
-          <div class="error-msg" id="error-passwordConfirm">Les mots de passe ne correspondent pas</div>
         </div>
 
-        <label class="terms">
-          <input type="checkbox" id="terms" required>
-          <span>J’accepte les <a href="#">Conditions d’utilisation</a> et la <a href="#">Politique de confidentialité</a></span>
-        </label>
-        <div class="error-msg" id="error-terms" style="margin-top:-12px; margin-bottom:12px;">Vous devez accepter les conditions</div>
-
-        <button type="submit" class="btn btn-primary" id="submitBtn">
-          Créer mon compte
-        </button>
-      </form>
-
-      <div class="divider">ou</div>
-
-      <p class="login-link">
-        Déjà un compte ? <a href="login.html">Se connecter</a>
-      </p>
-
-      <div class="demo-note">
-        Mode démo : l’inscription redirige vers le dashboard
+        <!-- CONFIRMATION VIEW -->
+        <div id="confirmationView" class="confirmation" aria-live="polite">
+          <div class="confirmation-icon">✓</div>
+          <h2>Compte créé !</h2>
+          <p>
+            Votre compte IAnnonce a bien été créé.
+            Nous avons envoyé un e-mail de confirmation à
+            <span id="confirmationEmail" class="confirmation-email"></span>.
+            <br><br>
+            Cliquez sur le lien présent dans cet e-mail pour activer votre compte.
+          </p>
+          <a href="login.html" class="btn-login">Aller à la connexion</a>
+        </div>
       </div>
     </div>
   </main>
 
+  <!-- FOOTER (identique dashboard) -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="logo">IA<span>nnonce</span></a>
+          <p>Le copilote marketing immobilier propulsé par l’intelligence artificielle. Créez des annonces qui vendent vraiment.</p>
+        </div>
+        <div>
+          <h4>Produit</h4>
+          <ul>
+            <li><a href="index.html#fonctionnalites">Fonctionnalités</a></li>
+            <li><a href="index.html#demo">Démonstration</a></li>
+            <li><a href="index.html#tarifs">Tarifs</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Entreprise</h4>
+          <ul>
+            <li><a href="#">À propos</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Légal</h4>
+          <ul>
+            <li><a href="#">Confidentialité</a></li>
+            <li><a href="#">Conditions</a></li>
+            <li><a href="#">Mentions légales</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 IAnnonce.ch. Tous droits réservés.</span>
+        <span>Swiss Administration & Accounting SARL, 1963 Vétroz</span>
+      </div>
+    </div>
+  </footer>
 
-    <!-- 1. Librairie Supabase -->
+  <!-- SUPABASE -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-  <!-- 2. Config (crée la variable supabase) -->
   <script src="js/supabase.js"></script>
 
-  <!-- 3. Code de la page -->
   <script>
-    function togglePassword(id) {
-      const input = document.getElementById(id);
-      input.type = input.type === 'password' ? 'text' : 'password';
+    const registerForm = document.getElementById("registerForm");
+    const submitButton = document.getElementById("submitButton");
+    const nameInput = document.getElementById("name");
+    const emailInput = document.getElementById("email");
+    const passwordInput = document.getElementById("password");
+    const passwordConfirmInput = document.getElementById("passwordConfirm");
+    const termsInput = document.getElementById("terms");
+    const message = document.getElementById("message");
+    const registerView = document.getElementById("registerView");
+    const confirmationView = document.getElementById("confirmationView");
+    const confirmationEmail = document.getElementById("confirmationEmail");
+
+    function showMessage(text, type = "error") {
+      message.textContent = text;
+      message.className = "message visible " + type;
     }
 
-    function showError(id, show) {
-      const input = document.getElementById(id);
-      const error = document.getElementById('error-' + id);
-      if (show) {
-        input.classList.add('error');
-        error.classList.add('visible');
-      } else {
-        input.classList.remove('error');
-        error.classList.remove('visible');
-      }
+    function hideMessage() {
+      message.textContent = "";
+      message.className = "message";
     }
 
-    async function handleRegister(e) {
-      e.preventDefault();
+    function setLoading(loading) {
+      submitButton.disabled = loading;
+      submitButton.textContent = loading ? "Création du compte…" : "Créer mon compte";
+    }
 
-      const name = document.getElementById('name').value.trim();
-      const email = document.getElementById('email').value.trim();
-      const password = document.getElementById('password').value;
-      const passwordConfirm = document.getElementById('passwordConfirm').value;
-      const terms = document.getElementById('terms').checked;
-
-      // Reset erreurs
-      ['name', 'email', 'password', 'passwordConfirm', 'terms'].forEach(id => {
-        const err = document.getElementById('error-' + id);
-        if (err) err.classList.remove('visible');
-        const input = document.getElementById(id);
-        if (input) input.classList.remove('error');
+    function validateForm() {
+      hideMessage();
+      [nameInput, emailInput, passwordInput, passwordConfirmInput].forEach(input => {
+        input.classList.remove("input-error");
       });
 
-      let valid = true;
+      const name = nameInput.value.trim();
+      const email = emailInput.value.trim();
+      const password = passwordInput.value;
+      const passwordConfirm = passwordConfirmInput.value;
 
-      if (!name) {
-        showError('name', true);
-        valid = false;
+      if (name.length < 2) {
+        nameInput.classList.add("input-error");
+        showMessage("Veuillez saisir votre nom complet.");
+        nameInput.focus();
+        return false;
       }
-      if (!email || !email.includes('@')) {
-        showError('email', true);
-        valid = false;
+
+      if (!emailInput.validity.valid) {
+        emailInput.classList.add("input-error");
+        showMessage("Veuillez saisir une adresse e-mail valide.");
+        emailInput.focus();
+        return false;
       }
+
       if (password.length < 8) {
-        showError('password', true);
-        valid = false;
+        passwordInput.classList.add("input-error");
+        showMessage("Votre mot de passe doit contenir au moins 8 caractères.");
+        passwordInput.focus();
+        return false;
       }
+
       if (password !== passwordConfirm) {
-        showError('passwordConfirm', true);
-        valid = false;
-      }
-      if (!terms) {
-        document.getElementById('error-terms').classList.add('visible');
-        valid = false;
+        passwordConfirmInput.classList.add("input-error");
+        showMessage("Les deux mots de passe ne correspondent pas.");
+        passwordConfirmInput.focus();
+        return false;
       }
 
-      if (!valid) return;
+      if (!termsInput.checked) {
+        showMessage("Vous devez accepter les conditions d'utilisation.");
+        termsInput.focus();
+        return false;
+      }
 
-      const btn = document.getElementById('submitBtn');
-      btn.disabled = true;
-      btn.textContent = 'Création…';
+      return true;
+    }
+
+    registerForm.addEventListener("submit", async function (event) {
+      event.preventDefault();
+
+      if (!validateForm()) return;
+
+      const fullName = nameInput.value.trim();
+      const email = emailInput.value.trim().toLowerCase();
+      const password = passwordInput.value;
+
+      setLoading(true);
 
       try {
         const { data, error } = await supabase.auth.signUp({
@@ -424,27 +574,79 @@
           password: password,
           options: {
             data: {
-              full_name: name
+              full_name: fullName
             }
           }
         });
 
-        if (error) throw error;
+        if (error) {
+          console.error("Erreur Supabase inscription :", error);
+          throw error;
+        }
 
-        alert('Compte créé avec succès !');
-        window.location.href = 'dashboard.html';
+        // Session immédiate (confirm email désactivé)
+        if (data && data.session) {
+          window.location.replace("dashboard.html");
+          return;
+        }
+
+        // Pas de session → confirmation email requise
+        confirmationEmail.textContent = email;
+        registerView.style.display = "none";
+        confirmationView.classList.add("visible");
       } catch (error) {
-        console.error(error);
-        alert(error.message || 'Erreur lors de la création du compte');
-        btn.disabled = false;
-        btn.textContent = 'Créer mon compte';
+        console.error("Erreur lors de la création du compte :", error);
+
+        let errorMessage = "Impossible de créer votre compte. Veuillez réessayer.";
+        const rawMessage = (error && error.message) ? error.message : "";
+
+        if (
+          rawMessage.toLowerCase().includes("already registered") ||
+          rawMessage.toLowerCase().includes("already exists") ||
+          rawMessage.toLowerCase().includes("user already registered")
+        ) {
+          errorMessage = "Cette adresse e-mail est déjà utilisée. Essayez de vous connecter.";
+        } else if (rawMessage.toLowerCase().includes("password")) {
+          errorMessage = "Le mot de passe ne respecte pas les exigences de sécurité.";
+        } else if (rawMessage.toLowerCase().includes("email")) {
+          errorMessage = "Veuillez vérifier votre adresse e-mail.";
+        } else if (rawMessage) {
+          errorMessage = rawMessage;
+        }
+
+        showMessage(errorMessage, "error");
+      } finally {
+        setLoading(false);
+      }
+    });
+
+    [nameInput, emailInput, passwordInput, passwordConfirmInput].forEach(input => {
+      input.addEventListener("input", function () {
+        input.classList.remove("input-error");
+        if (message.classList.contains("error")) hideMessage();
+      });
+    });
+
+    emailInput.addEventListener("blur", function () {
+      emailInput.value = emailInput.value.trim().toLowerCase();
+    });
+
+    async function checkExistingSession() {
+      try {
+        const { data, error } = await supabase.auth.getSession();
+        if (error) {
+          console.warn("Impossible de vérifier la session :", error);
+          return;
+        }
+        if (data && data.session) {
+          window.location.replace("dashboard.html");
+        }
+      } catch (error) {
+        console.warn("Erreur vérification session :", error);
       }
     }
 
-    // Enlever les erreurs en temps réel
-    ['name', 'email', 'password', 'passwordConfirm'].forEach(id => {
-      document.getElementById(id).addEventListener('input', () => showError(id, false));
-    });
+    checkExistingSession();
   </script>
 </body>
 </html>
